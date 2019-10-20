@@ -12,8 +12,12 @@ public class Weapon : MonoBehaviour
     public GameObject bullet;
     public GameObject shootPoint;
     public bool canShoot = true;
+    public bool triggerReleased = true;
 
-    public virtual void Shoot()
+    public virtual void Shoot() {
+    }
+
+    public void SpawnBullet()
     {
         if (canShoot)
         {
@@ -28,5 +32,19 @@ public class Weapon : MonoBehaviour
     {
         yield return new WaitForSeconds(t);
         canShoot = true;
+    }
+
+    public void Update()
+    {
+
+        if (Input.GetMouseButton(0))
+        {
+            triggerReleased = false;
+        }
+
+        if (Input.GetMouseButtonUp(0))
+        {
+            triggerReleased = true;
+        }
     }
 }
