@@ -11,7 +11,9 @@ public class SemiAutomatic : Weapon
 
         if (triggerReleased)
         {
-            SpawnBullet();
+            if (canShoot) {
+                SpawnBullet();
+            }
         }
     }
 }

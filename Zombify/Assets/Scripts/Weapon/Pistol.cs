@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Pistol : Automatic
+public class Pistol : SemiAutomatic
 {
     private void Start()
     {

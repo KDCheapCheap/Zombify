@@ -17,15 +17,13 @@ public class Weapon : MonoBehaviour
     public virtual void Shoot() {
     }
 
-    public void SpawnBullet()
-    {
-        if (canShoot)
-        {
-            Instantiate(bullet, shootPoint.transform.position, shootPoint.transform.rotation);
-            CameraShaker.Instance.ShakeOnce(2, 2.5f, .1f, .1f);
-            canShoot = false;
-            StartCoroutine(ShootDelay(fireRate));
-        }
+    public void SpawnBullet() {
+
+        Instantiate(bullet, shootPoint.transform.position, shootPoint.transform.rotation);
+        CameraShaker.Instance.ShakeOnce(2, 2.5f, .1f, .1f);
+        canShoot = false;
+        StartCoroutine(ShootDelay(fireRate));
+ 
     }
 
     public virtual IEnumerator ShootDelay(float t)
