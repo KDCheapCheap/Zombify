@@ -6,9 +6,6 @@ public class Automatic : Weapon
 {
     public override void Shoot()
     {
-        if (canShoot)
-        {
-            SpawnBullet();
-        }
+        SpawnBullet();
     }
 }

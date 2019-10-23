@@ -7,8 +7,8 @@ public class Pistol : SemiAutomatic
     private void Start()
     {
         damage = 2;
-        fireRate = .7f;
-        reloadSpeed = 4;
+        fireRate = 2f;
+        reloadSpeed = 2.5f;
         canShoot = true;
     }
 }

@@ -4,16 +4,13 @@ using UnityEngine;
 
 public class SemiAutomatic : Weapon
 {
-    
+
     public override void Shoot()
     {
-        base.Shoot();
-
-        if (triggerReleased)
+        //base.Shoot();
+        if (canShoot)
         {
-            if (canShoot) {
-                SpawnBullet();
-            }
+            SpawnBullet();
         }
     }
 }

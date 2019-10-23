@@ -6,56 +6,48 @@ using EZCameraShake;
 
 public class PlayerController : MonoBehaviour
 {
+    public enum PlayerClasses
+    {
+        Soldier,
+        Medic,
+        Scout,
+        Engineer
+    }
+
     public float baseSpeed;
-    float currentSpeed;
-    float sprintSpeed;
-    //---------------------------------------------------------
+    public int health;
+    public PlayerClasses playerClass;
+    public int upgradePoints = 0;
+
+    public GameObject[] Weapons = new GameObject[4];
+
+    #region Sprinting Vars
+    private float currentStamina = 3.0f;
+    private float MaxStamina = 3.0f;
     bool isSprinting = false;
-    //---------------------------------------------------------
-    public float currentStamina = 3.0f;
-    public float MaxStamina = 3.0f;
     //---------------------------------------------------------
     private float StaminaRegenTimer = 0.0f;
     //---------------------------------------------------------
     private const float StaminaDecreasePerFrame = 1.0f;
     private const float StaminaIncreasePerFrame = 0.5f;
     private const float StaminaTimeToRegen = 1.5f;
-    //---------------------------------------------------------
-    //---------------------------------------------------------
-    //private const float timeBetweenShots = 0.7f;
-    //private float shotTimer;
-    ////bool canShoot = true;
+    #endregion
 
-    int magSize;
-    int currentBulletsInMag;
-    float reloadTimer;
-    float timeToReload;
-    //---------------------------------------------------------
-    //---------------------------------------------------------
-    public GameObject shootPoint;
-    public GameObject bulletPrefab;
-    public GameObject gunSpawn;
-    public GameObject[] Weapons;
-    public bool hasWeaponEquipped;
-    //---------------------------------------------------------
-    //---------------------------------------------------------
-    //enum Weapons {Pistol, SMG, AR, ARBurst, Shotgun};
+    [SerializeField] private GameObject gunSpawn;
+    
+    private bool hasWeaponEquipped;
     private Weapon currentWeapon;
-    //---------------------------------------------------------
-    //---------------------------------------------------------
-    public enum PlayerClasses {Soldier, Medic, Scout, Engineer};
-    public PlayerClasses playerClass;
-    //---------------------------------------------------------
-    //---------------------------------------------------------
-    public int upgradePoints = 0;
+    private float currentSpeed;
+    private float sprintSpeed;
+    
 
-    void Start()
+    public virtual void Start()
     {
         currentSpeed = baseSpeed;
-        currentWeapon = Weapons[0].GetComponent<Weapon>();
+        currentWeapon = Weapons[1].GetComponent<Weapon>();
     }
 
-    public void Update()
+    public virtual void Update()
     {
         LookAtMouse();
         Movement();
@@ -64,7 +56,7 @@ public class PlayerController : MonoBehaviour
 
         if(!hasWeaponEquipped)
         {
-            var newWeapon = Instantiate(currentWeapon.gameObject, gunSpawn.transform.position, gunSpawn.transform.rotation, gunSpawn.transform);
+            GameObject newWeapon = Instantiate(currentWeapon.gameObject, gunSpawn.transform.position, gunSpawn.transform.rotation, gunSpawn.transform);
             currentWeapon = newWeapon.GetComponent<Weapon>();
             hasWeaponEquipped = true;
         }

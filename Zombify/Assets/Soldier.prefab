@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3633999553905699458}
   - component: {fileID: 3633999553905699517}
-  - component: {fileID: 3633999553905699459}
+  - component: {fileID: 7527819698587816626}
   - component: {fileID: 3633999553905699457}
   - component: {fileID: 3633999553905699456}
   m_Layer: 0
@@ -83,7 +83,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &3633999553905699459
+--- !u!114 &7527819698587816626
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -92,19 +92,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 3633999553905699516}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 410a38a40a8584142980dde746730564, type: 3}
+  m_Script: {fileID: 11500000, guid: 3a0746cb1aaac5f42aaf54a2af77ca36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseSpeed: 7
+  baseSpeed: 0
   currentStamina: 3
   MaxStamina: 3
-  shootPoint: {fileID: 0}
-  bulletPrefab: {fileID: 522107544352622433, guid: 06ddfc41bc316b2498b6f5b5f877cf89,
-    type: 3}
-  gunSpawn: {fileID: 8647097660170752974}
+  gunSpawn: {fileID: 0}
   Weapons:
-  - {fileID: 5182305766152278989, guid: bb832758d72353d4da4a3b3e7d75f64b, type: 3}
-  - {fileID: 0}
+  - {fileID: 8107339468408172529, guid: bb832758d72353d4da4a3b3e7d75f64b, type: 3}
+  - {fileID: 175218, guid: 742eda03021ca43188e1b8c446477e89, type: 3}
   - {fileID: 0}
   - {fileID: 0}
   hasWeaponEquipped: 0
@@ -138,7 +135,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 500
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 0
@@ -172,7 +169,7 @@ Transform:
   m_GameObject: {fileID: 8647097660170752974}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0.072, y: -0.074, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 0}
+  m_LocalScale: {x: 0.8, y: 0.8, z: 0}
   m_Children: []
   m_Father: {fileID: 3633999553905699458}
   m_RootOrder: 0

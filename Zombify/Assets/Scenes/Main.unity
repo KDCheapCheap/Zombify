@@ -1132,6 +1132,12 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1615885521 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8647097660170752974, guid: 721225e76a6a69b45ae07a4ec1a54754,
+    type: 3}
+  m_PrefabInstance: {fileID: 3633999554002562914}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2036956646
 GameObject:
   m_ObjectHideFlags: 0
@@ -2057,27 +2063,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1825115645916925509, guid: 721225e76a6a69b45ae07a4ec1a54754,
+    - target: {fileID: 7527819698587816626, guid: 721225e76a6a69b45ae07a4ec1a54754,
         type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.8
-      objectReference: {fileID: 0}
-    - target: {fileID: 1825115645916925509, guid: 721225e76a6a69b45ae07a4ec1a54754,
-        type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.8
-      objectReference: {fileID: 0}
-    - target: {fileID: 3633999553905699459, guid: 721225e76a6a69b45ae07a4ec1a54754,
-        type: 3}
-      propertyPath: Weapons.Array.data[0]
+      propertyPath: gunSpawn
       value: 
-      objectReference: {fileID: 8107339468408172529, guid: bb832758d72353d4da4a3b3e7d75f64b,
-        type: 3}
-    - target: {fileID: 3633999553905699456, guid: 721225e76a6a69b45ae07a4ec1a54754,
-        type: 3}
-      propertyPath: m_Mass
-      value: 500
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1615885521}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 721225e76a6a69b45ae07a4ec1a54754, type: 3}
 --- !u!1001 &4259893554687097464
