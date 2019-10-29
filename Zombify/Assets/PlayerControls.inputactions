@@ -1,0 +1,33 @@
+{
+    "name": "PlayerControls",
+    "maps": [
+        {
+            "name": "Gameplay",
+            "id": "506b3174-c7ba-41ea-addb-eed1cd07751f",
+            "actions": [
+                {
+                    "name": "Move",
+                    "type": "Value",
+                    "id": "143bce47-634a-429d-b90e-d3067dbd3e6e",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": ""
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "5db7af7d-fc0c-4986-b139-73985c3ebfce",
+                    "path": "<XInputController>/leftStick",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}

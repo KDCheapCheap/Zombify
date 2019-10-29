@@ -8,9 +8,15 @@ public class SemiAutomatic : Weapon
     public override void Shoot()
     {
         //base.Shoot();
-        if (canShoot)
+        if (canShoot && currentBulletCount > 0)
         {
             SpawnBullet();
+        }
+        else if (currentBulletCount <= 0)
+        {
+            isReloading = true;
+
+            StartCoroutine(Reload(reloadSpeed));
         }
     }
 }

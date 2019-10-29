@@ -12,7 +12,11 @@ public class Weapon : MonoBehaviour
     public GameObject bullet;
     public GameObject shootPoint;
     public bool canShoot = true;
-    public bool isBurstShooting;
+    public bool isReloading = false;
+
+    [HideInInspector] public int totalAmmo;
+    [HideInInspector] public int magSize;
+    [HideInInspector] public int currentBulletCount;
 
     public virtual void Shoot()
     {
@@ -23,6 +27,7 @@ public class Weapon : MonoBehaviour
     {
 
         Instantiate(bullet, shootPoint.transform.position, shootPoint.transform.rotation);
+        currentBulletCount -= 1;
         CameraShaker.Instance.ShakeOnce(2, 2.5f, .1f, .1f);
         canShoot = false;
         StartCoroutine(ShootDelay(fireRate));
@@ -33,6 +38,28 @@ public class Weapon : MonoBehaviour
     {
         yield return new WaitForSeconds(t);
         canShoot = true;
-        isBurstShooting = false;
+    }
+
+    public virtual IEnumerator Reload(float reloadSpeed)
+    {
+        yield return new WaitForSeconds(reloadSpeed);
+        while (isReloading)
+        {
+            if (totalAmmo >= magSize)
+            {
+                currentBulletCount = magSize;
+                totalAmmo -= magSize;
+                isReloading = false;
+            }
+            else
+            {
+                currentBulletCount = totalAmmo;
+                totalAmmo = 0;
+                isReloading = false;
+            }
+            yield return null;
+        }
+        isReloading = false;
+        yield return null;
     }
 }
