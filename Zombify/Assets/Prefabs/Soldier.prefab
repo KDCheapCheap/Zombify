@@ -60,6 +60,7 @@ SpriteRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -95,18 +96,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a0746cb1aaac5f42aaf54a2af77ca36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseSpeed: 0
-  currentStamina: 3
-  MaxStamina: 3
-  gunSpawn: {fileID: 0}
+  baseSpeed: 7
+  health: 0
+  playerClass: 0
+  upgradePoints: 0
+  skillTree: []
   Weapons:
   - {fileID: 8107339468408172529, guid: bb832758d72353d4da4a3b3e7d75f64b, type: 3}
   - {fileID: 175218, guid: 742eda03021ca43188e1b8c446477e89, type: 3}
   - {fileID: 0}
   - {fileID: 0}
-  hasWeaponEquipped: 0
-  playerClass: 0
-  upgradePoints: 0
+  gunSpawn: {fileID: 8647097660170752974}
+  currentBulletCount: {fileID: 0}
+  totalAmmo: {fileID: 0}
 --- !u!58 &3633999553905699457
 CircleCollider2D:
   m_ObjectHideFlags: 0
