@@ -47,8 +47,9 @@ public class Weapon : MonoBehaviour
         {
             if (totalAmmo >= magSize)
             {
+                int amountToReload = magSize - currentBulletCount;
                 currentBulletCount = magSize;
-                totalAmmo -= magSize;
+                totalAmmo -= amountToReload;
                 isReloading = false;
             }
             else

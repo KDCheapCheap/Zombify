@@ -57,7 +57,17 @@ public class PlayerController : MonoBehaviour
         controls = new PlayerControls();
 
         controls.Gameplay.Move.performed += ctx => movement = ctx.ReadValue<Vector2>();
-        //controls.Gameplay.Move.canceled += ctx => movement = Vector2.zero;
+        controls.Gameplay.Move.canceled += ctx => movement = Vector2.zero;
+    }
+
+    private void OnEnable()
+    {
+        controls.Enable();
+    }
+
+    private void OnDisable()
+    {
+        controls.Disable();
     }
 
     public virtual void Start()
@@ -82,6 +92,12 @@ public class PlayerController : MonoBehaviour
             GameObject newWeapon = Instantiate(currentWeapon.gameObject, gunSpawn.transform.position, gunSpawn.transform.rotation, gunSpawn.transform);
             currentWeapon = newWeapon.GetComponent<Weapon>();
             hasWeaponEquipped = true;
+        }
+
+        if(Input.GetKeyDown(KeyCode.R))
+        {
+            currentWeapon.isReloading = true;
+            StartCoroutine(currentWeapon.Reload(currentWeapon.reloadSpeed));
         }
     }
 
@@ -138,7 +154,7 @@ public class PlayerController : MonoBehaviour
 
     public void Movement()
     {
-        Vector3 m = new Vector3(movement.x, movement.y, 0) * Time.deltaTime * currentSpeed;
+        Vector2 m = new Vector2(movement.x, movement.y) * Time.deltaTime * currentSpeed;
         Debug.Log(m);
         //transform.Translate(xMovement * Time.deltaTime * currentSpeed, yMovement * Time.deltaTime * currentSpeed, 0, Space.World);
         transform.Translate(m, Space.World);

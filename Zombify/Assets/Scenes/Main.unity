@@ -3733,12 +3733,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1613535213}
   m_CullTransparentMesh: 0
---- !u!1 &1615885521 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8647097660170752974, guid: 721225e76a6a69b45ae07a4ec1a54754,
-    type: 3}
-  m_PrefabInstance: {fileID: 3633999554002562914}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1645139377
 GameObject:
   m_ObjectHideFlags: 0
@@ -4008,7 +4002,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2091088856}
   - component: {fileID: 2091088855}
-  - component: {fileID: 2091088854}
   m_Layer: 0
   m_Name: UI Camera
   m_TagString: Untagged
@@ -4016,14 +4009,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!81 &2091088854
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2091088853}
-  m_Enabled: 1
 --- !u!20 &2091088855
 Camera:
   m_ObjectHideFlags: 0
@@ -5115,11 +5100,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7527819698587816626, guid: 721225e76a6a69b45ae07a4ec1a54754,
-        type: 3}
-      propertyPath: gunSpawn
-      value: 
-      objectReference: {fileID: 1615885521}
     - target: {fileID: 7527819698587816626, guid: 721225e76a6a69b45ae07a4ec1a54754,
         type: 3}
       propertyPath: currentBulletCount
