@@ -48,9 +48,20 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private TMP_Text currentBulletCount;
     [SerializeField] private TMP_Text totalAmmo;
 
-    [HideInInspector] public PlayerControls controls; //control scheme
-    Vector2 movement;
 
+    [HideInInspector] public PlayerControls controls; //control scheme
+    private Vector2 movement;
+    private Vector2 lookAtPoint;
+    private Vector2 lookAtOffset;
+    private float RTValue;
+
+    private bool isRTPressed
+    {
+        get
+        {
+            return RTValue >= .8f ? true : false;
+        }
+    }
 
     public virtual void Awake()
     {
@@ -58,6 +69,18 @@ public class PlayerController : MonoBehaviour
 
         controls.Gameplay.Move.performed += ctx => movement = ctx.ReadValue<Vector2>();
         controls.Gameplay.Move.canceled += ctx => movement = Vector2.zero;
+
+        controls.Gameplay.Look.performed += ctx => lookAtOffset = ctx.ReadValue<Vector2>();
+        controls.Gameplay.Look.canceled += ctx => lookAtOffset = Vector2.zero;
+
+        controls.Gameplay.Shoot.performed += ctx => RTValue = ctx.ReadValue<float>();
+        controls.Gameplay.Shoot.canceled += ctx => RTValue = 0;
+    }
+
+    private Vector2 GetLookAtPoint()
+    {
+        lookAtPoint = transform.position + new Vector3(lookAtOffset.x * 10f, lookAtOffset.y * 10f);
+        return lookAtPoint;
     }
 
     private void OnEnable()
@@ -73,13 +96,13 @@ public class PlayerController : MonoBehaviour
     public virtual void Start()
     {
         currentSpeed = baseSpeed;
-        currentWeapon = Weapons[1].GetComponent<Weapon>();
+        currentWeapon = Weapons[0].GetComponent<Weapon>();
     }
 
     public virtual void Update()
     {
         Debug.Log(movement);
-        LookAtMouse();
+        LookAtStick();
         Movement();
         Sprint();
         Shoot();
@@ -139,17 +162,17 @@ public class PlayerController : MonoBehaviour
 
     public void Shoot()
     {
-        if (Input.GetMouseButton(0))
+        if (Input.GetMouseButton(0) || isRTPressed)
         {
             currentWeapon.Shoot();
         }
     }
 
-    public void LookAtMouse()
+    public void LookAtStick()
     {
-        var dir = Input.mousePosition - Camera.main.WorldToScreenPoint(transform.position);
-        var angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+        Vector2 dir = (Vector2)transform.position - GetLookAtPoint();/*Input.mousePosition - Camera.main.WorldToScreenPoint(transform.position)*/;
+        float angle = Mathf.Atan2(-dir.y, -dir.x) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.AngleAxis(-angle, Vector3.back);
     }
 
     public void Movement()
@@ -175,5 +198,11 @@ public class PlayerController : MonoBehaviour
         {
             ability.Use();
         }
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.blue;
+        Gizmos.DrawSphere(lookAtPoint, .2f);
     }
 }

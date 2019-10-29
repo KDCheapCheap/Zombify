@@ -28,9 +28,17 @@ public class PlayerControls : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": ""Look"",
-                    ""type"": ""Button"",
+                    ""type"": ""Value"",
                     ""id"": ""fdc00625-6d2c-4f30-b739-4c84f8c34b2d"",
-                    ""expectedControlType"": """",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Shoot"",
+                    ""type"": ""Button"",
+                    ""id"": ""a02440ce-f04d-4204-b57a-f6c07c7947e8"",
+                    ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
                 }
@@ -105,11 +113,22 @@ public class PlayerControls : IInputActionCollection, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""0dc303f6-7a8d-4c6c-941c-58cfc441773d"",
-                    ""path"": """",
+                    ""path"": ""<Gamepad>/rightStick"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Look"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e3cce75d-8f3e-428d-94a8-0bea79a8f8f9"",
+                    ""path"": ""<Gamepad>/rightTrigger"",
+                    ""interactions"": ""Press"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Shoot"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -122,6 +141,7 @@ public class PlayerControls : IInputActionCollection, IDisposable
         m_Gameplay = asset.FindActionMap("Gameplay", throwIfNotFound: true);
         m_Gameplay_Move = m_Gameplay.FindAction("Move", throwIfNotFound: true);
         m_Gameplay_Look = m_Gameplay.FindAction("Look", throwIfNotFound: true);
+        m_Gameplay_Shoot = m_Gameplay.FindAction("Shoot", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -173,12 +193,14 @@ public class PlayerControls : IInputActionCollection, IDisposable
     private IGameplayActions m_GameplayActionsCallbackInterface;
     private readonly InputAction m_Gameplay_Move;
     private readonly InputAction m_Gameplay_Look;
+    private readonly InputAction m_Gameplay_Shoot;
     public struct GameplayActions
     {
         private PlayerControls m_Wrapper;
         public GameplayActions(PlayerControls wrapper) { m_Wrapper = wrapper; }
         public InputAction @Move => m_Wrapper.m_Gameplay_Move;
         public InputAction @Look => m_Wrapper.m_Gameplay_Look;
+        public InputAction @Shoot => m_Wrapper.m_Gameplay_Shoot;
         public InputActionMap Get() { return m_Wrapper.m_Gameplay; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -194,6 +216,9 @@ public class PlayerControls : IInputActionCollection, IDisposable
                 Look.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnLook;
                 Look.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnLook;
                 Look.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnLook;
+                Shoot.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnShoot;
+                Shoot.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnShoot;
+                Shoot.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnShoot;
             }
             m_Wrapper.m_GameplayActionsCallbackInterface = instance;
             if (instance != null)
@@ -204,6 +229,9 @@ public class PlayerControls : IInputActionCollection, IDisposable
                 Look.started += instance.OnLook;
                 Look.performed += instance.OnLook;
                 Look.canceled += instance.OnLook;
+                Shoot.started += instance.OnShoot;
+                Shoot.performed += instance.OnShoot;
+                Shoot.canceled += instance.OnShoot;
             }
         }
     }
@@ -212,5 +240,6 @@ public class PlayerControls : IInputActionCollection, IDisposable
     {
         void OnMove(InputAction.CallbackContext context);
         void OnLook(InputAction.CallbackContext context);
+        void OnShoot(InputAction.CallbackContext context);
     }
 }
