@@ -41,6 +41,38 @@ public class PlayerControls : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Reload"",
+                    ""type"": ""Button"",
+                    ""id"": ""a20039e5-da5c-4037-a206-b50c9d453959"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Ability"",
+                    ""type"": ""Button"",
+                    ""id"": ""b5d6e3fa-c35b-47bc-816c-44269174f609"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Sprint"",
+                    ""type"": ""Button"",
+                    ""id"": ""e3399c80-effc-41de-94a1-0d817182af93"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""AbilityMenu"",
+                    ""type"": ""Button"",
+                    ""id"": ""8e56983c-d1c3-411c-8314-7b1aad385c90"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -125,10 +157,125 @@ public class PlayerControls : IInputActionCollection, IDisposable
                     ""name"": """",
                     ""id"": ""e3cce75d-8f3e-428d-94a8-0bea79a8f8f9"",
                     ""path"": ""<Gamepad>/rightTrigger"",
-                    ""interactions"": ""Press"",
+                    ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Shoot"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""456945f0-fa90-46a9-b0bb-15c3065b894d"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Shoot"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1767e662-fc2f-49ce-af02-994ae6968965"",
+                    ""path"": ""<Gamepad>/rightShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Reload"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6c63c050-a3af-4188-a855-a53895b05a46"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Reload"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""247dc8f0-e066-4d12-8990-4d118264d574"",
+                    ""path"": ""<Gamepad>/buttonWest"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Ability"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""be9ce087-2f9d-4e07-8109-3da66802d034"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Ability"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d1659bb8-e87f-490d-9770-c3fa808ccaa0"",
+                    ""path"": ""<Gamepad>/leftTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Sprint"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a12a3085-3ba4-4041-8fb5-d72b4e6dcced"",
+                    ""path"": ""<Keyboard>/leftShift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Sprint"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8072fffc-d964-476a-9ab7-b5fe379743da"",
+                    ""path"": ""<Gamepad>/select"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""AbilityMenu"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
+        },
+        {
+            ""name"": ""Menu"",
+            ""id"": ""8e4f036b-214a-4423-a14a-ea1774b971f0"",
+            ""actions"": [
+                {
+                    ""name"": ""New action"",
+                    ""type"": ""Button"",
+                    ""id"": ""82aa2116-18bf-4356-bab9-359b61837dd8"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """"
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""7bebd750-3566-497e-941c-c022ed199492"",
+                    ""path"": """",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""New action"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -142,6 +289,13 @@ public class PlayerControls : IInputActionCollection, IDisposable
         m_Gameplay_Move = m_Gameplay.FindAction("Move", throwIfNotFound: true);
         m_Gameplay_Look = m_Gameplay.FindAction("Look", throwIfNotFound: true);
         m_Gameplay_Shoot = m_Gameplay.FindAction("Shoot", throwIfNotFound: true);
+        m_Gameplay_Reload = m_Gameplay.FindAction("Reload", throwIfNotFound: true);
+        m_Gameplay_Ability = m_Gameplay.FindAction("Ability", throwIfNotFound: true);
+        m_Gameplay_Sprint = m_Gameplay.FindAction("Sprint", throwIfNotFound: true);
+        m_Gameplay_AbilityMenu = m_Gameplay.FindAction("AbilityMenu", throwIfNotFound: true);
+        // Menu
+        m_Menu = asset.FindActionMap("Menu", throwIfNotFound: true);
+        m_Menu_Newaction = m_Menu.FindAction("New action", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -194,6 +348,10 @@ public class PlayerControls : IInputActionCollection, IDisposable
     private readonly InputAction m_Gameplay_Move;
     private readonly InputAction m_Gameplay_Look;
     private readonly InputAction m_Gameplay_Shoot;
+    private readonly InputAction m_Gameplay_Reload;
+    private readonly InputAction m_Gameplay_Ability;
+    private readonly InputAction m_Gameplay_Sprint;
+    private readonly InputAction m_Gameplay_AbilityMenu;
     public struct GameplayActions
     {
         private PlayerControls m_Wrapper;
@@ -201,6 +359,10 @@ public class PlayerControls : IInputActionCollection, IDisposable
         public InputAction @Move => m_Wrapper.m_Gameplay_Move;
         public InputAction @Look => m_Wrapper.m_Gameplay_Look;
         public InputAction @Shoot => m_Wrapper.m_Gameplay_Shoot;
+        public InputAction @Reload => m_Wrapper.m_Gameplay_Reload;
+        public InputAction @Ability => m_Wrapper.m_Gameplay_Ability;
+        public InputAction @Sprint => m_Wrapper.m_Gameplay_Sprint;
+        public InputAction @AbilityMenu => m_Wrapper.m_Gameplay_AbilityMenu;
         public InputActionMap Get() { return m_Wrapper.m_Gameplay; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -219,6 +381,18 @@ public class PlayerControls : IInputActionCollection, IDisposable
                 Shoot.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnShoot;
                 Shoot.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnShoot;
                 Shoot.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnShoot;
+                Reload.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnReload;
+                Reload.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnReload;
+                Reload.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnReload;
+                Ability.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnAbility;
+                Ability.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnAbility;
+                Ability.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnAbility;
+                Sprint.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnSprint;
+                Sprint.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnSprint;
+                Sprint.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnSprint;
+                AbilityMenu.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnAbilityMenu;
+                AbilityMenu.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnAbilityMenu;
+                AbilityMenu.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnAbilityMenu;
             }
             m_Wrapper.m_GameplayActionsCallbackInterface = instance;
             if (instance != null)
@@ -232,14 +406,67 @@ public class PlayerControls : IInputActionCollection, IDisposable
                 Shoot.started += instance.OnShoot;
                 Shoot.performed += instance.OnShoot;
                 Shoot.canceled += instance.OnShoot;
+                Reload.started += instance.OnReload;
+                Reload.performed += instance.OnReload;
+                Reload.canceled += instance.OnReload;
+                Ability.started += instance.OnAbility;
+                Ability.performed += instance.OnAbility;
+                Ability.canceled += instance.OnAbility;
+                Sprint.started += instance.OnSprint;
+                Sprint.performed += instance.OnSprint;
+                Sprint.canceled += instance.OnSprint;
+                AbilityMenu.started += instance.OnAbilityMenu;
+                AbilityMenu.performed += instance.OnAbilityMenu;
+                AbilityMenu.canceled += instance.OnAbilityMenu;
             }
         }
     }
     public GameplayActions @Gameplay => new GameplayActions(this);
+
+    // Menu
+    private readonly InputActionMap m_Menu;
+    private IMenuActions m_MenuActionsCallbackInterface;
+    private readonly InputAction m_Menu_Newaction;
+    public struct MenuActions
+    {
+        private PlayerControls m_Wrapper;
+        public MenuActions(PlayerControls wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Newaction => m_Wrapper.m_Menu_Newaction;
+        public InputActionMap Get() { return m_Wrapper.m_Menu; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(MenuActions set) { return set.Get(); }
+        public void SetCallbacks(IMenuActions instance)
+        {
+            if (m_Wrapper.m_MenuActionsCallbackInterface != null)
+            {
+                Newaction.started -= m_Wrapper.m_MenuActionsCallbackInterface.OnNewaction;
+                Newaction.performed -= m_Wrapper.m_MenuActionsCallbackInterface.OnNewaction;
+                Newaction.canceled -= m_Wrapper.m_MenuActionsCallbackInterface.OnNewaction;
+            }
+            m_Wrapper.m_MenuActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                Newaction.started += instance.OnNewaction;
+                Newaction.performed += instance.OnNewaction;
+                Newaction.canceled += instance.OnNewaction;
+            }
+        }
+    }
+    public MenuActions @Menu => new MenuActions(this);
     public interface IGameplayActions
     {
         void OnMove(InputAction.CallbackContext context);
         void OnLook(InputAction.CallbackContext context);
         void OnShoot(InputAction.CallbackContext context);
+        void OnReload(InputAction.CallbackContext context);
+        void OnAbility(InputAction.CallbackContext context);
+        void OnSprint(InputAction.CallbackContext context);
+        void OnAbilityMenu(InputAction.CallbackContext context);
+    }
+    public interface IMenuActions
+    {
+        void OnNewaction(InputAction.CallbackContext context);
     }
 }

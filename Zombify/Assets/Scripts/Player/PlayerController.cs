@@ -48,49 +48,24 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private TMP_Text currentBulletCount;
     [SerializeField] private TMP_Text totalAmmo;
 
-
-    [HideInInspector] public PlayerControls controls; //control scheme
-    private Vector2 movement;
     private Vector2 lookAtPoint;
-    private Vector2 lookAtOffset;
-    private float RTValue;
 
-    private bool isRTPressed
+    private Vector2 lookDeadzone
     {
         get
         {
-            return RTValue >= .8f ? true : false;
+            float x = transform.position.x + 5f;
+            float y = transform.position.y + 5f;
+
+            return new Vector2(x, y);
         }
-    }
-
-    public virtual void Awake()
-    {
-        controls = new PlayerControls();
-
-        controls.Gameplay.Move.performed += ctx => movement = ctx.ReadValue<Vector2>();
-        controls.Gameplay.Move.canceled += ctx => movement = Vector2.zero;
-
-        controls.Gameplay.Look.performed += ctx => lookAtOffset = ctx.ReadValue<Vector2>();
-        controls.Gameplay.Look.canceled += ctx => lookAtOffset = Vector2.zero;
-
-        controls.Gameplay.Shoot.performed += ctx => RTValue = ctx.ReadValue<float>();
-        controls.Gameplay.Shoot.canceled += ctx => RTValue = 0;
-    }
+    } 
 
     private Vector2 GetLookAtPoint()
     {
-        lookAtPoint = transform.position + new Vector3(lookAtOffset.x * 10f, lookAtOffset.y * 10f);
+        lookAtPoint = transform.position + new Vector3(InputManager.inputInstance.lookAtOffset.x * 10f, InputManager.inputInstance.lookAtOffset.y * 10f);
+
         return lookAtPoint;
-    }
-
-    private void OnEnable()
-    {
-        controls.Enable();
-    }
-
-    private void OnDisable()
-    {
-        controls.Disable();
     }
 
     public virtual void Start()
@@ -101,7 +76,6 @@ public class PlayerController : MonoBehaviour
 
     public virtual void Update()
     {
-        Debug.Log(movement);
         LookAtStick();
         Movement();
         Sprint();
@@ -117,18 +91,20 @@ public class PlayerController : MonoBehaviour
             hasWeaponEquipped = true;
         }
 
-        if(Input.GetKeyDown(KeyCode.R))
+        if (InputManager.inputInstance.onRBPressed)
         {
+            Debug.Log("RB reload");
             currentWeapon.isReloading = true;
             StartCoroutine(currentWeapon.Reload(currentWeapon.reloadSpeed));
         }
+        Debug.Log(GetLookAtPoint());
     }
 
     public void Sprint()
     {
         sprintSpeed = currentSpeed + (currentSpeed / 10) * 2;
 
-        if (Input.GetKey(KeyCode.LeftShift))
+        if (InputManager.inputInstance.isLTPressed)
         {
             if (!isSprinting && currentStamina != 0)
             {
@@ -162,7 +138,7 @@ public class PlayerController : MonoBehaviour
 
     public void Shoot()
     {
-        if (Input.GetMouseButton(0) || isRTPressed)
+        if (Input.GetMouseButton(0) || InputManager.inputInstance.isRTPressed)
         {
             currentWeapon.Shoot();
         }
@@ -173,11 +149,25 @@ public class PlayerController : MonoBehaviour
         Vector2 dir = (Vector2)transform.position - GetLookAtPoint();/*Input.mousePosition - Camera.main.WorldToScreenPoint(transform.position)*/;
         float angle = Mathf.Atan2(-dir.y, -dir.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.AngleAxis(-angle, Vector3.back);
+
+        WeaponLookAtStick(currentWeapon);
+    }
+
+    private void WeaponLookAtStick(Weapon currentWeapon)
+    {
+        float dist = Vector2.Distance(transform.position, GetLookAtPoint()); //Stops the 
+
+        if (dist >= 5f)
+        {
+            Vector2 dir = (Vector2)currentWeapon.transform.position - GetLookAtPoint();
+            float angle = Mathf.Atan2(-dir.y, -dir.x) * Mathf.Rad2Deg;
+            currentWeapon.transform.rotation = Quaternion.AngleAxis(-angle, Vector3.back);
+        }
     }
 
     public void Movement()
     {
-        Vector2 m = new Vector2(movement.x, movement.y) * Time.deltaTime * currentSpeed;
+        Vector2 m = new Vector2(InputManager.inputInstance.movementVector.x, InputManager.inputInstance.movementVector.y) * Time.deltaTime * currentSpeed;
         Debug.Log(m);
         //transform.Translate(xMovement * Time.deltaTime * currentSpeed, yMovement * Time.deltaTime * currentSpeed, 0, Space.World);
         transform.Translate(m, Space.World);
