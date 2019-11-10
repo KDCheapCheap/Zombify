@@ -6,7 +6,7 @@ public class AmmoPickup : Ability
 {
     
 
-    private float throwDistance = 3; //Distance it goes from player who through it
+    private float throwDistance = 6; //Distance it goes from player who through it
     private int ammoGiven = 30;
     private int lifeDuration = 5;
 

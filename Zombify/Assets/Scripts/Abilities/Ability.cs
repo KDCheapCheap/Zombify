@@ -16,6 +16,7 @@ public class Ability : MonoBehaviour
     public Ability[] parents;
     protected float cooldownTime;
     protected PlayerController.PlayerClasses playerClass;
+    private bool onCooldown = false;
 
     protected virtual void Awake()
     {
@@ -25,11 +26,26 @@ public class Ability : MonoBehaviour
     public virtual void Use() //Handles base functionality for using an ability
     {
         //instantiate object that runs it's own shit? Yeah go on then
-        Instantiate(gameObject);
+        if (!onCooldown)
+        {
+            Instantiate(gameObject, player.transform.position, player.transform.rotation);
+            onCooldown = false;
+            StartCoroutine(Cooldown());
+
+        }
+        else
+        {
+            Debug.Log("On cooldown!");
+        }
     }
 
     public bool AttemptBuyAbility()
     {
+        if(player == null)
+        {
+            player = FindCorrectPlayer();
+        }
+
         int parentCheckCount = 0;
 
         if (parents.Length != 0) //If it has a parent skill, check if that's unlocked
@@ -59,7 +75,7 @@ public class Ability : MonoBehaviour
         }
         else
         {
-            if (player.upgradePoints <= cost)
+            if (player.upgradePoints >= cost)
             {
                 isUnlocked = true;
                 player.upgradePoints -= cost; //Buy ability
@@ -99,5 +115,11 @@ public class Ability : MonoBehaviour
                 return null;
 
         }
+    }
+
+    private IEnumerator Cooldown()
+    {
+        yield return new WaitForSeconds(cooldownTime);
+        onCooldown = false;
     }
 }
