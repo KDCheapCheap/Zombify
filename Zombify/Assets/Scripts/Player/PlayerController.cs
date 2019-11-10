@@ -22,7 +22,7 @@ public class PlayerController : MonoBehaviour
 
     public int upgradePoints = 0;
     [SerializeField] private Ability[] skillTree;
-    private GameObject equippedAbility;
+    private Ability equippedAbility;
 
     public GameObject[] Weapons = new GameObject[4];
 
@@ -41,14 +41,14 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private GameObject gunSpawn;
 
     private bool hasWeaponEquipped;
-    private Weapon currentWeapon;
+    [HideInInspector] public Weapon currentWeapon;
     private float currentSpeed;
     private float sprintSpeed;
 
     [SerializeField] private TMP_Text currentBulletCount;
     [SerializeField] private TMP_Text totalAmmo;
 
-    private Vector2 lookAtPoint;
+    public Vector2 lookAtPoint;
 
     private Vector2 lookDeadzone
     {
@@ -97,6 +97,20 @@ public class PlayerController : MonoBehaviour
             currentWeapon.isReloading = true;
             StartCoroutine(currentWeapon.Reload(currentWeapon.reloadSpeed));
         }
+
+        if(Input.GetKeyDown(KeyCode.G))
+        {
+            if(skillTree[0].AttemptBuyAbility())
+            {
+                equippedAbility = skillTree[0];
+            }
+        }
+
+        if(InputManager.inputInstance.onXPress)
+        {
+            equippedAbility.Use();
+        }
+
         Debug.Log(GetLookAtPoint());
     }
 

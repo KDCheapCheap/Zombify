@@ -10,11 +10,17 @@ using UnityEngine;
 
 public class Ability : MonoBehaviour
 {
-    bool isUnlocked;
-    int cost;
-    PlayerController player;
-    Ability[] parents;
-    float cooldownTime;
+    protected bool isUnlocked;
+    protected int cost;
+    protected PlayerController player;
+    public Ability[] parents;
+    protected float cooldownTime;
+    protected PlayerController.PlayerClasses playerClass;
+
+    protected virtual void Awake()
+    {
+        player = FindCorrectPlayer();
+    }
 
     public virtual void Use() //Handles base functionality for using an ability
     {
@@ -38,7 +44,7 @@ public class Ability : MonoBehaviour
 
             if (parentCheckCount == parents.Length) //if all are unlocked
             {
-                if (player.upgradePoints <= cost)
+                if (player.upgradePoints <= cost) //Check if player can afford skill
                 {
                     isUnlocked = true;
                     player.upgradePoints -= cost; //Buy ability
@@ -71,5 +77,27 @@ public class Ability : MonoBehaviour
     private void OnBuyFailed()
     {
         Debug.LogError("This isn't unlocked yet!"); //Replace this with UI element later
+    }
+
+    private PlayerController FindCorrectPlayer()
+    {
+        switch (playerClass)
+        {
+            case PlayerController.PlayerClasses.Engineer:
+                return GameObject.Find("Engineer").GetComponent<PlayerController>();
+
+            case PlayerController.PlayerClasses.Medic:
+                return GameObject.Find("Medic").GetComponent<PlayerController>();
+
+            case PlayerController.PlayerClasses.Scout:
+                return GameObject.Find("Scout").GetComponent<PlayerController>();
+
+            case PlayerController.PlayerClasses.Soldier:
+                return GameObject.Find("Soldier").GetComponent<PlayerController>();
+            default:
+                Debug.LogError("Player type not set in inspector!");
+                return null;
+
+        }
     }
 }
