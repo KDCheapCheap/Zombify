@@ -21,8 +21,8 @@ public class PlayerController : MonoBehaviour
     public PlayerClasses playerClass;
 
     public int upgradePoints = 0;
-    [SerializeField] private Ability[] skillTree;
-    private Ability equippedAbility;
+    public List<Ability> skillTree = new List<Ability>();
+    [SerializeField]private Ability equippedAbility;
 
     public GameObject[] Weapons = new GameObject[4];
 
@@ -84,6 +84,11 @@ public class PlayerController : MonoBehaviour
         currentBulletCount.text = currentWeapon.currentBulletCount.ToString();
         totalAmmo.text = currentWeapon.totalAmmo.ToString();
 
+        for (int i = 0; i < skillTree.Count - 1; i++)
+        {
+            Debug.Log($"Skill {i}: {skillTree[i].gameObject.name}");
+        }
+
         if (!hasWeaponEquipped)
         {
             GameObject newWeapon = Instantiate(currentWeapon.gameObject, gunSpawn.transform.position, gunSpawn.transform.rotation, gunSpawn.transform);
@@ -110,8 +115,6 @@ public class PlayerController : MonoBehaviour
         {
             equippedAbility.Use();
         }
-
-        Debug.Log(GetLookAtPoint());
     }
 
     public void Sprint()
@@ -182,7 +185,6 @@ public class PlayerController : MonoBehaviour
     public void Movement()
     {
         Vector2 m = new Vector2(InputManager.inputInstance.movementVector.x, InputManager.inputInstance.movementVector.y) * Time.deltaTime * currentSpeed;
-        Debug.Log(m);
         //transform.Translate(xMovement * Time.deltaTime * currentSpeed, yMovement * Time.deltaTime * currentSpeed, 0, Space.World);
         transform.Translate(m, Space.World);
     }

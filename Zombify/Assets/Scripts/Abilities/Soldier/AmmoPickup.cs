@@ -10,19 +10,25 @@ public class AmmoPickup : Ability
     private int ammoGiven = 30;
     private int lifeDuration = 5;
 
-    protected override void Awake()
+    public override void Init()
     {
         cost = 1;
         cooldownTime = 10f;
         playerClass = PlayerController.PlayerClasses.Soldier;
-        base.Awake(); //Must be called after playerClass is assigned!!
+        player = FindCorrectPlayer();
+        Debug.Log(player);
     }
 
     private void Start()
     {
+        
         //playerRef = GameObject.Find("Soldier").GetComponent<PlayerController>();
+
+    }
+
+    private void OnEnable()
+    {
         StartCoroutine(Throw(player.lookAtPoint));
-        Destroy(gameObject, lifeDuration); //Get rid of object after so long as to not litter the world
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -41,7 +47,7 @@ public class AmmoPickup : Ability
     {
         float throwDuration = .7f;
         float throwTime = 0;
-        Vector3 dir = (transform.position - lookAtPoint).normalized; //Direction to throw to based on where player is looking
+        Vector3 dir = (transform.position - -lookAtPoint).normalized; //Direction to throw to based on where player is looking
 
         while(throwTime < throwDuration)
         {

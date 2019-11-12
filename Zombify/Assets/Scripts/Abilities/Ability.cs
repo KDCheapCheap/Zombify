@@ -12,15 +12,15 @@ public class Ability : MonoBehaviour
 {
     protected bool isUnlocked;
     protected int cost;
-    protected PlayerController player;
+    public PlayerController player;
     public Ability[] parents;
     protected float cooldownTime;
-    protected PlayerController.PlayerClasses playerClass;
+    public PlayerController.PlayerClasses playerClass;
     private bool onCooldown = false;
 
-    protected virtual void Awake()
+    public virtual void Init()
     {
-        player = FindCorrectPlayer();
+        
     }
 
     public virtual void Use() //Handles base functionality for using an ability
@@ -28,8 +28,12 @@ public class Ability : MonoBehaviour
         //instantiate object that runs it's own shit? Yeah go on then
         if (!onCooldown)
         {
-            Instantiate(gameObject, player.transform.position, player.transform.rotation);
-            onCooldown = false;
+            //Instantiate(gameObject, player.transform.position, player.transform.rotation);
+            Debug.Log(player);
+            transform.position = player.gameObject.transform.position;
+            gameObject.SetActive(true);
+
+            onCooldown = true;
             StartCoroutine(Cooldown());
 
         }
@@ -41,11 +45,6 @@ public class Ability : MonoBehaviour
 
     public bool AttemptBuyAbility()
     {
-        if(player == null)
-        {
-            player = FindCorrectPlayer();
-        }
-
         int parentCheckCount = 0;
 
         if (parents.Length != 0) //If it has a parent skill, check if that's unlocked
@@ -60,8 +59,9 @@ public class Ability : MonoBehaviour
 
             if (parentCheckCount == parents.Length) //if all are unlocked
             {
-                if (player.upgradePoints <= cost) //Check if player can afford skill
+                if (player.upgradePoints >= cost) //Check if player can afford skill
                 {
+                    //Debug.Log($"{player.gameObject.name} bought {gameObject.name}");
                     isUnlocked = true;
                     player.upgradePoints -= cost; //Buy ability
                     return true;
@@ -77,6 +77,7 @@ public class Ability : MonoBehaviour
         {
             if (player.upgradePoints >= cost)
             {
+                //Debug.Log($"{player.gameObject.name} bought {gameObject.name}");
                 isUnlocked = true;
                 player.upgradePoints -= cost; //Buy ability
                 return true;
@@ -92,10 +93,10 @@ public class Ability : MonoBehaviour
 
     private void OnBuyFailed()
     {
-        Debug.LogError("This isn't unlocked yet!"); //Replace this with UI element later
+        Debug.LogError($"{player.gameObject.name} failed to buy {gameObject.name}"); //Replace this with UI element later
     }
 
-    private PlayerController FindCorrectPlayer()
+    protected PlayerController FindCorrectPlayer()
     {
         switch (playerClass)
         {
@@ -121,5 +122,6 @@ public class Ability : MonoBehaviour
     {
         yield return new WaitForSeconds(cooldownTime);
         onCooldown = false;
+        gameObject.SetActive(false);
     }
 }

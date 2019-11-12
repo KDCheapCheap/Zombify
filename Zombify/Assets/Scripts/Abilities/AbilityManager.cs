@@ -6,7 +6,6 @@ public class AbilityManager : MonoBehaviour
 {
     public static AbilityManager abilityManagerInstance;
     public Ability[] allAbilities; //Holds all abilities, set in inspector
-    private List<GameObject> abilityPrefabs = new List<GameObject>();
 
     //Start and awake Functions
     #region Init
@@ -25,26 +24,48 @@ public class AbilityManager : MonoBehaviour
     private void Start()
     {
         SpawnAllAbilities();
+
     }
     #endregion 
 
     private void SpawnAllAbilities()
     {
-        GameObject abilityToCreate = null;
 
-        foreach(Ability a in allAbilities) 
+
+        foreach (Ability a in allAbilities)
         {
-            abilityToCreate = a.gameObject;
-            Instantiate(abilityToCreate);
+            GameObject abilityToCreate = new GameObject();
+            abilityToCreate = Instantiate(a.gameObject, transform);
+            Debug.Log($"abilityPos: {abilityToCreate.transform.position}");
+            abilityToCreate.GetComponent<Ability>().Init();
             abilityToCreate.SetActive(false);
-            abilityPrefabs.Add(abilityToCreate);
+            AssignAbilties(abilityToCreate);
         }
     }
 
-    private void AssignAbilties()
+    private void AssignAbilties(GameObject a)
     {
         //loop through list, check each abilities player class and add it to their skill tree
-    }
+        //Find the correct player and add the ability to the skilltree
 
-    
+        switch (a.GetComponent<Ability>().playerClass)
+        {
+            case PlayerController.PlayerClasses.Engineer:
+                GameObject.Find("Engineer").GetComponent<PlayerController>().skillTree.Add(a.GetComponent<Ability>());
+                break;
+
+            case PlayerController.PlayerClasses.Medic:
+                GameObject.Find("Medic").GetComponent<PlayerController>().skillTree.Add(a.GetComponent<Ability>());
+                break;
+
+            case PlayerController.PlayerClasses.Scout:
+                GameObject.Find("Scout").GetComponent<PlayerController>().skillTree.Add(a.GetComponent<Ability>());
+                break;
+
+            case PlayerController.PlayerClasses.Soldier:
+                GameObject.Find("Soldier").GetComponent<PlayerController>().skillTree.Add(a.GetComponent<Ability>());
+                break;
+        }
+    }
 }
+

@@ -142,6 +142,17 @@
                 },
                 {
                     "name": "",
+                    "id": "c0eb8fec-6aa0-492f-b836-b79cabec0539",
+                    "path": "<Mouse>/position",
+                    "interactions": "",
+                    "processors": "NormalizeVector2",
+                    "groups": "",
+                    "action": "Look",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "e3cce75d-8f3e-428d-94a8-0bea79a8f8f9",
                     "path": "<Gamepad>/rightTrigger",
                     "interactions": "",
