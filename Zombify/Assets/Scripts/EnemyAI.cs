@@ -6,6 +6,15 @@ using Pathfinding;
 public class EnemyAI : MonoBehaviour
 {
 
+    public enum Status
+    {
+        Normal,
+        Stunned,
+        Posioned,
+        Slowed,
+        Confused
+    }
+
     public Transform target
     {
 
@@ -26,8 +35,10 @@ public class EnemyAI : MonoBehaviour
             return closestPlayer.transform;
         }
     }
-    public float speed = 200;
+    private float baseSpeed;
+    public float currentSpeed = 200;
     public float nextWaypointDistance = 3;
+    public Status currentStatus;
 
     Path path;
     int currentWaypoint = 0;
@@ -36,8 +47,11 @@ public class EnemyAI : MonoBehaviour
     Seeker seeker;
     Rigidbody2D rb;
 
+    public int health;
+
     void Start()
     {
+        baseSpeed = currentSpeed;
         seeker = GetComponent<Seeker>();
         rb = GetComponent<Rigidbody2D>();
         InvokeRepeating("UpdatePath", 0f, .5f);
@@ -63,7 +77,7 @@ public class EnemyAI : MonoBehaviour
         }
 
         Vector2 dir = ((Vector2)path.vectorPath[currentWaypoint] - rb.position).normalized;
-        Vector2 force = dir * speed * Time.deltaTime;
+        Vector2 force = dir * currentSpeed * Time.deltaTime;
 
         rb.AddForce(force);
 
@@ -76,6 +90,22 @@ public class EnemyAI : MonoBehaviour
 
         LookAtTarget();
 
+        switch (currentStatus)
+        {
+            case Status.Slowed:
+                currentSpeed = baseSpeed / 2;
+                break;
+            case Status.Stunned:
+                break;
+            case Status.Posioned:
+                
+            case Status.Confused:
+                break;
+            default:
+                currentSpeed = baseSpeed;
+                break;
+        }
+
     }
 
     private void LookAtTarget()
@@ -83,7 +113,7 @@ public class EnemyAI : MonoBehaviour
         Vector3 lookDir = target.transform.position - transform.position;
         float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg;
         Quaternion q = Quaternion.AngleAxis(angle, Vector3.forward);
-        transform.rotation = Quaternion.Slerp(transform.rotation, q, Time.deltaTime * speed);
+        transform.rotation = Quaternion.Slerp(transform.rotation, q, Time.deltaTime * currentSpeed);
     }
 
     void OnPathComplete(Path p)

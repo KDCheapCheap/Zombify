@@ -11,6 +11,21 @@ TagManager:
   - SmokeTrail
   - Spawner
   - Bullet
+  - GunBarrel
+  - GunClip
+  - GunMuzzle
+  - GunBody
+  - GunSight
+  - GunStock
+  - GunFlash
+  - Player1CBC
+  - Player2CBC
+  - Player3CBC
+  - Player4CBC
+  - Player1TA
+  - Player2TA
+  - Player3TA
+  - Player4TA
   layers:
   - Default
   - TransparentFX
