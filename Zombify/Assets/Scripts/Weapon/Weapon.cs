@@ -40,6 +40,8 @@ public class Weapon : MonoBehaviour
         canShoot = true;
     }
 
+    https://www.youtube.com/watch?v=aLpixrPvlB8
+
     public virtual IEnumerator Reload(float reloadSpeed)
     {
         yield return new WaitForSeconds(reloadSpeed);
