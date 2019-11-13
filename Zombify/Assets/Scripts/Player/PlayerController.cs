@@ -34,6 +34,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField]private Ability equippedAbility;
 
     public GameObject[] Weapons = new GameObject[4];
+    [HideInInspector]public bool isGettingAmmo = false;
 
     #region Sprinting Vars
     private float currentStamina = 3.0f;
@@ -173,10 +174,13 @@ public class PlayerController : MonoBehaviour
 
     public void LookAtStick()
     {
-        Vector2 dir = (Vector2)transform.position - GetLookAtPoint();/*Input.mousePosition - Camera.main.WorldToScreenPoint(transform.position)*/;
-        float angle = Mathf.Atan2(-dir.y, -dir.x) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.AngleAxis(-angle, Vector3.back);
-
+        float dist = Vector2.Distance(transform.position, GetLookAtPoint());
+        if (dist >= 3)
+        {
+            Vector2 dir = (Vector2)transform.position - GetLookAtPoint();/*Input.mousePosition - Camera.main.WorldToScreenPoint(transform.position)*/;
+            float angle = Mathf.Atan2(-dir.y, -dir.x) * Mathf.Rad2Deg;
+            transform.rotation = Quaternion.AngleAxis(-angle, Vector3.back);
+        }
         WeaponLookAtStick(currentWeapon);
     }
 
@@ -205,14 +209,6 @@ public class PlayerController : MonoBehaviour
         {
             //Open weapon wheel popup
             //Weapon wheel popup handles the rest
-        }
-    }
-
-    public void UseAbility(Ability ability)
-    {
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            ability.Use();
         }
     }
 

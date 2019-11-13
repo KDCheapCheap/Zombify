@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class AmmoPickup : Ability
 {
-    
+
 
     private float throwDistance = 6; //Distance it goes from player who through it
     private int ammoGiven = 30;
@@ -21,7 +21,7 @@ public class AmmoPickup : Ability
 
     private void Start()
     {
-        
+
         //playerRef = GameObject.Find("Soldier").GetComponent<PlayerController>();
 
     }
@@ -33,13 +33,21 @@ public class AmmoPickup : Ability
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        GameObject c = collision.gameObject;
-        PlayerController playerRef = null;
-        if(c.CompareTag("Player"))
+        PlayerController p = collision.gameObject.GetComponent<PlayerController>();
+        if (p != null)
         {
-            playerRef = c.GetComponent<PlayerController>();
-            playerRef.currentWeapon.totalAmmo += ammoGiven;
-            Destroy(gameObject);
+            if(!p.isGettingAmmo)
+            StartCoroutine(GiveAmmo(p));
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        PlayerController p = collision.gameObject.GetComponent<PlayerController>();
+        if (p != null)
+        {
+            p.isGettingAmmo = false;
+            StopCoroutine(GiveAmmo(p));
         }
     }
 
@@ -49,11 +57,36 @@ public class AmmoPickup : Ability
         float throwTime = 0;
         Vector3 dir = (transform.position - -lookAtPoint).normalized; //Direction to throw to based on where player is looking
 
-        while(throwTime < throwDuration)
+        while (throwTime < throwDuration)
         {
             transform.position = Vector3.Lerp(transform.position, transform.position + dir * throwDistance, Time.deltaTime * throwDuration); //Do throw
             throwTime += Time.deltaTime * throwDuration;
             yield return null;
         }
+    }
+
+    private IEnumerator GiveAmmo(PlayerController p)
+    {
+        p.isGettingAmmo = true;
+        for (int i = 0; i < ammoGiven; i++)
+        {
+            yield return new WaitForSeconds(.3f);
+
+            if (p.isGettingAmmo)
+            {
+                p.currentWeapon.totalAmmo += 1;
+            }
+            else
+            {
+                break;
+            }
+        }
+        yield return null;
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.blue;
+        Gizmos.DrawSphere(transform.position, 1);
     }
 }

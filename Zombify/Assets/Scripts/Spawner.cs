@@ -10,7 +10,6 @@ public class Spawner : MonoBehaviour
 
     int enemyAmountToSpawn;
     float spawnDelay;
-    bool isSpawning = false;
 
 
     //This will take from Object Pooler class/manager and just handle the spawning

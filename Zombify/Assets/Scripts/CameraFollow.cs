@@ -4,16 +4,59 @@ using UnityEngine;
 
 public class CameraFollow : MonoBehaviour
 {
-    public Transform target;
-
-    public float smoothSpeed = 0.125f;
-
-    public Vector3 offset;
+    [SerializeField] private List<Transform> targets;
+    private Vector3 centerPoint;
+    private Vector3 newPosition;
+    [SerializeField] private Vector3 offset;
+    private void Start()
+    {
+        FindTargets();
+    }
 
     void LateUpdate()
     {
-        Vector3 desiredPos = target.position + offset;
-        Vector3 smoothedPos = Vector3.Lerp(transform.position, desiredPos, smoothSpeed);
-        transform.position = smoothedPos;
+        if (targets.Count == 0)
+        {
+            return;
+        }
+
+        Move();
+    }
+
+    void Move()
+    {
+        centerPoint = GetCenterPoint();
+        newPosition = centerPoint + offset;
+
+        transform.position = newPosition;
+    }
+
+    void Zoom()
+    {
+
+    }
+
+    Vector3 GetCenterPoint()
+    {
+        if (targets.Count == 1)
+        {
+            return targets[0].position;
+        }
+
+        var bounds = new Bounds(targets[0].position, Vector3.zero);
+
+        for (int i = 0; i < targets.Count; i++)
+        {
+            bounds.Encapsulate(targets[i].position);
+        }
+
+        return bounds.center;
+    }
+    void FindTargets()
+    {
+        foreach (GameObject p in GameObject.FindGameObjectsWithTag("Player"))
+        {
+            targets.Add(p.transform);
+        }
     }
 }

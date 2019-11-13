@@ -28,7 +28,7 @@ public class Weapon : MonoBehaviour
 
         Instantiate(bullet, shootPoint.transform.position, shootPoint.transform.rotation);
         currentBulletCount -= 1;
-        CameraShaker.Instance.ShakeOnce(2, 2.5f, .1f, .1f);
+        CameraShaker.Instance.ShakeOnce(.2f, .25f, .01f, .01f);
         canShoot = false;
         StartCoroutine(ShootDelay(fireRate));
 
@@ -43,9 +43,9 @@ public class Weapon : MonoBehaviour
     public virtual IEnumerator Reload(float reloadSpeed)
     {
         yield return new WaitForSeconds(reloadSpeed);
-        while (isReloading)
+        if (isReloading)
         {
-            if (totalAmmo != 0)
+            if (totalAmmo == 0)
             {
                 yield return null;
             }
