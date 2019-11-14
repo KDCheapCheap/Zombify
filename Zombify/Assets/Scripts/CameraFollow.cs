@@ -10,8 +10,8 @@ public class CameraFollow : MonoBehaviour
     private Vector3 newPosition;
     [SerializeField] private Vector3 offset;
 
-    private float minZoom = 8;
-    private float maxZoom = 4;
+    private float minZoom = 50;
+    private float maxZoom = 25;
     private Camera cam;
 
     private void Start()
@@ -42,7 +42,7 @@ public class CameraFollow : MonoBehaviour
     void Zoom()
     {
         float newZoom = Mathf.Lerp(maxZoom, minZoom, GetGreatestDistance() / 50f);//GetGreatestDistance();
-        cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, newZoom, Time.deltaTime);
+        cam.orthographicSize = Mathf.Lerp(cam.orthographicSize, newZoom, Time.deltaTime);
     }
 
     float GetGreatestDistance()
