@@ -40,7 +40,7 @@ public class Weapon : MonoBehaviour
         canShoot = true;
     }
 
-    https://www.youtube.com/watch?v=aLpixrPvlB8
+    //https://www.youtube.com/watch?v=aLpixrPvlB8
 
     public virtual IEnumerator Reload(float reloadSpeed)
     {
