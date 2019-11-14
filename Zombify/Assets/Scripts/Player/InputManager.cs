@@ -47,6 +47,15 @@ public class InputManager : MonoBehaviour
         }
     }
 
+    private float backValue;
+    public bool onBackPress
+    {
+        get
+        {
+            return backValue == 1 ? true : false;
+        }
+    }
+
     private void Awake()
     {
         if (inputInstance == null)
