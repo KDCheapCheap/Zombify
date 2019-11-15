@@ -7,7 +7,7 @@ public class Menu : MonoBehaviour
 {
     public enum MenuType { RightSidePanel, LeftSidePanel, TopPanel, BottomPanel }
     [HideInInspector] public MenuType type;
-    protected bool inTransition;
+    [HideInInspector]public bool inTransition;
     [HideInInspector] public bool isShowing;
     protected PlayerController player;
     [HideInInspector] public RectTransform rect;

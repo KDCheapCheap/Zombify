@@ -86,6 +86,9 @@ public class InputManager : MonoBehaviour
 
         controls.Gameplay.Ability.performed += ctx => xValue = ctx.ReadValue<float>();
         controls.Gameplay.Ability.canceled += ctx => xValue = 0;
+
+        controls.Gameplay.AbilityMenu.performed += ctx => backValue = ctx.ReadValue<float>();
+        controls.Gameplay.AbilityMenu.canceled += ctx => backValue = 0;
     }
 
     private void OnEnable()

@@ -23,16 +23,38 @@ public class MenuManager : MonoBehaviour
 
     public void Show(Menu menu)
     {
+        if (!menu.isShowing)
+        {
+            switch (menu.type)
+            {
+                case Menu.MenuType.RightSidePanel:
+                    SidePanelOnShow(menu, true);
+                    break;
+                case Menu.MenuType.BottomPanel:
+                    TopBottomPanelOnShow(menu, true);
+                    break;
+                case Menu.MenuType.LeftSidePanel:
+                    SidePanelOnShow(menu, false);
+                    break;
+                case Menu.MenuType.TopPanel:
+                    TopBottomPanelOnShow(menu, false);
+                    break;
+            }
+        }
+    }
+
+    public void Hide(Menu menu)
+    {
         switch (menu.type)
         {
             case Menu.MenuType.RightSidePanel:
-                SidePanelOnShow(menu, true);
+                SidePanelHide(menu, true);
                 break;
             case Menu.MenuType.BottomPanel:
                 TopBottomPanelOnShow(menu, true);
                 break;
             case Menu.MenuType.LeftSidePanel:
-                SidePanelOnShow(menu, false);
+                SidePanelHide(menu, false);
                 break;
             case Menu.MenuType.TopPanel:
                 TopBottomPanelOnShow(menu, false);
@@ -50,7 +72,8 @@ public class MenuManager : MonoBehaviour
         }
         else
         {
-            menu.rect.Translate(Vector3.right * (menu.parentRect.sizeDelta.x / 2) * Time.deltaTime);
+            Debug.Log("Should move panel");
+            StartCoroutine(ShowSidePanel(menu, .5f));
         }
     }
 
@@ -60,13 +83,70 @@ public class MenuManager : MonoBehaviour
         //holds transition logic
     }
 
-    public void SidePanelHide(Menu menu, bool righLeft)
+    public void SidePanelHide(Menu menu, bool rightLeft)
     {
-        //holds transition logic
+        if (!menu.inTransition)
+        {
+            //holds transition logic
+            if (rightLeft)
+            {
+
+            }
+            else
+            {
+                Debug.Log("Should move panel");
+                StartCoroutine(HideSidePanel(menu, .5f));
+            }
+        }
     }
 
     public void TopBottomHide(Menu menu, bool topBottom)
     {
         //holds transition logic
+    }
+
+    private IEnumerator ShowSidePanel(Menu menu, float duration)
+    {
+        menu.inTransition = true;
+        float t = 0;
+        Vector2 maxEndPos = new Vector2(1f, menu.rect.anchorMax.y);
+        Vector2 minEndPos = new Vector2(0.5f, menu.rect.anchorMin.y);
+
+        while (t < duration)
+        {
+            //Lerp max anchor to 1 and min anchor to 0.5
+            menu.rect.anchorMin = Vector2.Lerp(menu.rect.anchorMin, minEndPos, t);
+            menu.rect.anchorMax = Vector2.Lerp(menu.rect.anchorMax, maxEndPos, t);
+            t += Time.deltaTime;
+            yield return null;
+        }
+
+        if (t >= duration)
+        {
+            menu.inTransition = false;
+            menu.isShowing = true;
+        }
+    }
+
+    private IEnumerator HideSidePanel(Menu menu, float duration)
+    {
+        menu.inTransition = true;
+        float t = 0;
+        Vector2 maxEndPos = new Vector2(0.5f, menu.rect.anchorMax.y);
+        Vector2 minEndPos = new Vector2(0f, menu.rect.anchorMin.y);
+
+        while(t < duration)
+        {
+            menu.rect.anchorMin = Vector2.Lerp(menu.rect.anchorMin, minEndPos, t);
+            menu.rect.anchorMax = Vector2.Lerp(menu.rect.anchorMax, maxEndPos, t);
+            t += Time.deltaTime;
+            yield return null;
+        }
+
+        if (t >= duration)
+        {
+            menu.inTransition = false;
+            menu.isShowing = false;
+        }
     }
 }

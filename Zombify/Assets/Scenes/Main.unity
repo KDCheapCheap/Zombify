@@ -120,6 +120,79 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &5663156
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5663157}
+  - component: {fileID: 5663159}
+  - component: {fileID: 5663158}
+  m_Layer: 5
+  m_Name: CurrentSelection
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &5663157
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5663156}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1666439445}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.060840636, y: 0.36666784}
+  m_AnchorMax: {x: 0.21432137, y: 0.6309909}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &5663158
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5663156}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: 972bcaa31eb948c4cac4ceca1ad5d246, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &5663159
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5663156}
+  m_CullTransparentMesh: 0
 --- !u!1 &5814738
 GameObject:
   m_ObjectHideFlags: 0
@@ -1495,7 +1568,7 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 7.4
+  m_fontSize: 19.3
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -2096,6 +2169,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 535143606}
+  - component: {fileID: 535143607}
   m_Layer: 0
   m_Name: MenuManager
   m_TagString: Untagged
@@ -2117,6 +2191,19 @@ Transform:
   m_Father: {fileID: 2036956647}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &535143607
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 535143605}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 12bfdc5c3133a6745b8430a72077a62b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soldierAbilitiesMenu: {fileID: 1080171364}
 --- !u!1 &545534739
 GameObject:
   m_ObjectHideFlags: 0
@@ -3117,10 +3204,10 @@ RectTransform:
   m_Father: {fileID: 743237770}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.000058536392, y: 0.7536946}
-  m_AnchorMax: {x: 0.49812183, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0.000030517578}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 0.7536946}
+  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchoredPosition: {x: -0.5, y: 0}
+  m_SizeDelta: {x: -3, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1080171364
 MonoBehaviour:
@@ -3135,14 +3222,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 0
+  inTransition: 0
   isShowing: 0
   rect: {fileID: 0}
-  parentRect: {fileID: 0}
-  skill1: {fileID: 0}
-  skill2: {fileID: 0}
-  skill3: {fileID: 0}
-  skill4: {fileID: 0}
-  parentPanel: {fileID: 0}
+  parentRect: {fileID: 743237770}
+  skill1: {fileID: 545534741}
+  skill2: {fileID: 2046397409}
+  skill3: {fileID: 1147301440}
+  skill4: {fileID: 475103933}
 --- !u!114 &1080171365
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4190,6 +4277,7 @@ RectTransform:
   - {fileID: 1147301439}
   - {fileID: 475103932}
   - {fileID: 44260966}
+  - {fileID: 5663157}
   m_Father: {fileID: 1080171363}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

@@ -16,18 +16,9 @@ public class PlayerController : MonoBehaviour
         Engineer
     }
 
-    public enum PlayerNumber
-    {
-        Player1,
-        Player2,
-        Player3,
-        Player4
-    }
-
     public float baseSpeed;
     public int health;
     [HideInInspector]public PlayerClasses playerClass;
-    public PlayerNumber playerNumber;
 
     public int upgradePoints = 0;
     public List<Ability> skillTree = new List<Ability>();
@@ -78,6 +69,8 @@ public class PlayerController : MonoBehaviour
         return lookAtPoint;
     }
 
+    private bool isShowingAbilityMenu;
+
     public virtual void Start()
     {
         currentSpeed = baseSpeed;
@@ -89,6 +82,7 @@ public class PlayerController : MonoBehaviour
     {
         LookAtStick();
         Movement();
+        CheckInput();
         Sprint();
         Shoot();
 
@@ -107,6 +101,11 @@ public class PlayerController : MonoBehaviour
             hasWeaponEquipped = true;
         }
 
+        
+    }
+
+    private void CheckInput()
+    {
         if (InputManager.inputInstance.onRBPressed)
         {
             Debug.Log("RB reload");
@@ -114,17 +113,31 @@ public class PlayerController : MonoBehaviour
             StartCoroutine(currentWeapon.Reload(currentWeapon.reloadSpeed));
         }
 
-        if(Input.GetKeyDown(KeyCode.G))
+        if (Input.GetKeyDown(KeyCode.G))
         {
-            if(skillTree[0].AttemptBuyAbility())
+            if (skillTree[0].AttemptBuyAbility())
             {
                 equippedAbility = skillTree[0];
             }
         }
 
-        if(InputManager.inputInstance.onXPress)
+        if (InputManager.inputInstance.onXPress)
         {
             equippedAbility.Use();
+        }
+
+        if (InputManager.inputInstance.onBackPress)
+        {
+            if (!isShowingAbilityMenu)
+            {
+                OpenAbilityMenu();
+                isShowingAbilityMenu = true;
+            }
+            else
+            {
+                HideAbilityMenu();
+                isShowingAbilityMenu = false;
+            }
         }
     }
 
@@ -220,23 +233,43 @@ public class PlayerController : MonoBehaviour
 
     private void GetUI()
     {
-        switch (playerNumber)
+        switch (playerClass)
         {
-            case PlayerNumber.Player1:
+            case PlayerClasses.Soldier:
                 currentBulletCount = GameObject.FindGameObjectWithTag("Player1CBC").GetComponent<TMP_Text>();
                 totalAmmo = GameObject.FindGameObjectWithTag("Player1TA").GetComponent<TMP_Text>();
                 break;
-            case PlayerNumber.Player2:
+            case PlayerClasses.Engineer:
                 currentBulletCount = GameObject.FindGameObjectWithTag("Player2CBC").GetComponent<TMP_Text>();
                 totalAmmo = GameObject.FindGameObjectWithTag("Player2TA").GetComponent<TMP_Text>();
                 break;
-            case PlayerNumber.Player3:
+            case PlayerClasses.Medic:
                 currentBulletCount = GameObject.FindGameObjectWithTag("Player3CBC").GetComponent<TMP_Text>();
                 totalAmmo = GameObject.FindGameObjectWithTag("Player3TA").GetComponent<TMP_Text>();
                 break;
-            case PlayerNumber.Player4:
+            case PlayerClasses.Scout:
                 currentBulletCount = GameObject.FindGameObjectWithTag("Player4CBC").GetComponent<TMP_Text>();
                 totalAmmo = GameObject.FindGameObjectWithTag("Player4TA").GetComponent<TMP_Text>();
+                break;
+        }
+    }
+
+    private void OpenAbilityMenu()
+    {
+        switch(playerClass)
+        {
+            case PlayerClasses.Soldier:
+                MenuManager.Instance.Show(MenuManager.Instance.soldierAbilitiesMenu);
+                break;
+        }
+    }
+
+    private void HideAbilityMenu()
+    {
+        switch(playerClass)
+        {
+            case PlayerClasses.Soldier:
+                MenuManager.Instance.Hide(MenuManager.Instance.soldierAbilitiesMenu);
                 break;
         }
     }
