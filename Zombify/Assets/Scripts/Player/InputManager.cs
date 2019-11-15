@@ -154,6 +154,16 @@ public class InputManager : MonoBehaviour
             return backValue == 1 ? true : false;
         }
     }
+
+    private float aValue;
+    public bool onAPress
+    {
+        get
+        {
+            return aValue == 1 ? true : false;
+        }
+
+    }
     #endregion
 
     #endregion

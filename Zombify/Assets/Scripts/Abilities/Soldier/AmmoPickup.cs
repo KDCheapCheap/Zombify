@@ -8,8 +8,6 @@ public class AmmoPickup : Ability
 
     private float throwDistance = 6; //Distance it goes from player who through it
     private int ammoGiven = 30;
-    private int lifeDuration = 5;
-
     public override void Init()
     {
         cost = 1;
@@ -28,7 +26,10 @@ public class AmmoPickup : Ability
 
     private void OnEnable()
     {
-        StartCoroutine(Throw(player.lookAtPoint));
+        if (player != null)
+        {
+            StartCoroutine(Throw(player.lookAtPoint));
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

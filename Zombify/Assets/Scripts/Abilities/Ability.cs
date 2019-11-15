@@ -10,7 +10,7 @@ using UnityEngine;
 
 public class Ability : MonoBehaviour
 {
-    protected bool isUnlocked;
+    [HideInInspector] public bool isUnlocked;
     protected int cost;
     public PlayerController player;
     public Ability[] parents;

@@ -5,10 +5,10 @@ using UnityEngine;
 [RequireComponent(typeof(Camera))]
 public class CameraFollow : MonoBehaviour
 {
-    [SerializeField] private List<Transform> targets;
+    [SerializeField] private List<Transform> targets = new List<Transform>();
     private Vector3 centerPoint;
     private Vector3 newPosition;
-    [SerializeField] private Vector3 offset;
+    [SerializeField] private Vector3 offset = Vector3.zero;
 
     private float minZoom = 50;
     private float maxZoom = 25;

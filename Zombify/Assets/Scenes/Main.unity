@@ -278,7 +278,7 @@ GameObject:
   - component: {fileID: 44260968}
   - component: {fileID: 44260967}
   m_Layer: 5
-  m_Name: AmmoPickupImage (4)
+  m_Name: GrenadeAbilityImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -298,8 +298,8 @@ RectTransform:
   m_Father: {fileID: 1666439445}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.48317036, y: 0.10234474}
-  m_AnchorMax: {x: 0.63665104, y: 0.36666784}
+  m_AnchorMin: {x: 0.48317036, y: 0.050046306}
+  m_AnchorMax: {x: 0.63665104, y: 0.3143694}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -1944,7 +1944,7 @@ GameObject:
   - component: {fileID: 475103934}
   - component: {fileID: 475103933}
   m_Layer: 5
-  m_Name: AmmoPickupImage (3)
+  m_Name: ARAbilityImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4288,10 +4288,10 @@ RectTransform:
   m_Father: {fileID: 1080171363}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.04145289, y: 0.12742685}
-  m_AnchorMax: {x: 0.9519917, y: 0.9620958}
-  m_AnchoredPosition: {x: 0.6799927, y: 0}
-  m_SizeDelta: {x: 13.51, y: 0}
+  m_AnchorMin: {x: 0.018027, y: 0.12742685}
+  m_AnchorMax: {x: 0.9806618, y: 0.9620958}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1666439446
 MonoBehaviour:

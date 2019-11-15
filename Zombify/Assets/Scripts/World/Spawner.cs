@@ -6,10 +6,10 @@ public class Spawner : MonoBehaviour
 {
     [SerializeField]
     [Range(0, 50)]
-    private float range;
+    private float range = 25;
 
     int enemyAmountToSpawn;
-    float spawnDelay;
+    float spawnDelay = 1;
 
 
     //This will take from Object Pooler class/manager and just handle the spawning

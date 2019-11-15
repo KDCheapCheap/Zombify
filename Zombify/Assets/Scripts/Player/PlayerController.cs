@@ -22,7 +22,7 @@ public class PlayerController : MonoBehaviour
 
     public int upgradePoints = 0;
     public List<Ability> skillTree = new List<Ability>();
-    [SerializeField]private Ability equippedAbility;
+    public Ability equippedAbility;
 
     public GameObject[] Weapons = new GameObject[4];
     [HideInInspector]public bool isGettingAmmo = false;
@@ -39,7 +39,7 @@ public class PlayerController : MonoBehaviour
     private const float StaminaTimeToRegen = 1.5f;
     #endregion
 
-    [SerializeField] private GameObject gunSpawn;
+    [SerializeField] private GameObject gunSpawn = new GameObject();
 
     private bool hasWeaponEquipped;
     [HideInInspector] public Weapon currentWeapon;

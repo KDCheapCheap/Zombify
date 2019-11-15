@@ -81,6 +81,14 @@ public class PlayerControls : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""MenuSelect"",
+                    ""type"": ""Button"",
+                    ""id"": ""2469584c-3283-4705-b6d8-a157251be2a1"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -270,6 +278,17 @@ public class PlayerControls : IInputActionCollection, IDisposable
                     ""action"": ""MenuMovement"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""cbe4a9a3-9523-44b2-9825-105aa352a350"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MenuSelect"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -286,6 +305,7 @@ public class PlayerControls : IInputActionCollection, IDisposable
         m_Gameplay_Sprint = m_Gameplay.FindAction("Sprint", throwIfNotFound: true);
         m_Gameplay_AbilityMenu = m_Gameplay.FindAction("AbilityMenu", throwIfNotFound: true);
         m_Gameplay_MenuMovement = m_Gameplay.FindAction("MenuMovement", throwIfNotFound: true);
+        m_Gameplay_MenuSelect = m_Gameplay.FindAction("MenuSelect", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -343,6 +363,7 @@ public class PlayerControls : IInputActionCollection, IDisposable
     private readonly InputAction m_Gameplay_Sprint;
     private readonly InputAction m_Gameplay_AbilityMenu;
     private readonly InputAction m_Gameplay_MenuMovement;
+    private readonly InputAction m_Gameplay_MenuSelect;
     public struct GameplayActions
     {
         private PlayerControls m_Wrapper;
@@ -355,6 +376,7 @@ public class PlayerControls : IInputActionCollection, IDisposable
         public InputAction @Sprint => m_Wrapper.m_Gameplay_Sprint;
         public InputAction @AbilityMenu => m_Wrapper.m_Gameplay_AbilityMenu;
         public InputAction @MenuMovement => m_Wrapper.m_Gameplay_MenuMovement;
+        public InputAction @MenuSelect => m_Wrapper.m_Gameplay_MenuSelect;
         public InputActionMap Get() { return m_Wrapper.m_Gameplay; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -388,6 +410,9 @@ public class PlayerControls : IInputActionCollection, IDisposable
                 MenuMovement.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnMenuMovement;
                 MenuMovement.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnMenuMovement;
                 MenuMovement.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnMenuMovement;
+                MenuSelect.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnMenuSelect;
+                MenuSelect.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnMenuSelect;
+                MenuSelect.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnMenuSelect;
             }
             m_Wrapper.m_GameplayActionsCallbackInterface = instance;
             if (instance != null)
@@ -416,6 +441,9 @@ public class PlayerControls : IInputActionCollection, IDisposable
                 MenuMovement.started += instance.OnMenuMovement;
                 MenuMovement.performed += instance.OnMenuMovement;
                 MenuMovement.canceled += instance.OnMenuMovement;
+                MenuSelect.started += instance.OnMenuSelect;
+                MenuSelect.performed += instance.OnMenuSelect;
+                MenuSelect.canceled += instance.OnMenuSelect;
             }
         }
     }
@@ -430,5 +458,6 @@ public class PlayerControls : IInputActionCollection, IDisposable
         void OnSprint(InputAction.CallbackContext context);
         void OnAbilityMenu(InputAction.CallbackContext context);
         void OnMenuMovement(InputAction.CallbackContext context);
+        void OnMenuSelect(InputAction.CallbackContext context);
     }
 }
