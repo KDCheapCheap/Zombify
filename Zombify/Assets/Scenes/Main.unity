@@ -3230,6 +3230,13 @@ MonoBehaviour:
   skill2: {fileID: 2046397409}
   skill3: {fileID: 1147301440}
   skill4: {fileID: 475103933}
+  totalAbilties:
+  - {fileID: 545534740}
+  - {fileID: 2046397408}
+  - {fileID: 1147301439}
+  - {fileID: 475103932}
+  - {fileID: 44260966}
+  currentSelection: {fileID: 5663157}
 --- !u!114 &1080171365
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4367,6 +4374,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movementVector: {x: 0, y: 0}
   lookAtOffset: {x: 0, y: 0}
+  dPadValue: {x: 0, y: 0}
 --- !u!1 &1920696019
 GameObject:
   m_ObjectHideFlags: 0

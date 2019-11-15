@@ -121,7 +121,7 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        if (InputManager.inputInstance.onXPress)
+        if (InputManager.inputInstance.onLBPress)
         {
             equippedAbility.Use();
         }
@@ -239,23 +239,18 @@ public class PlayerController : MonoBehaviour
                 currentBulletCount = GameObject.FindGameObjectWithTag("Player1CBC").GetComponent<TMP_Text>();
                 totalAmmo = GameObject.FindGameObjectWithTag("Player1TA").GetComponent<TMP_Text>();
                 break;
-<<<<<<< HEAD
-            case PlayerClasses.Engineer:
-=======
+
             case PlayerClasses.Scout:
->>>>>>> origin/Development
                 currentBulletCount = GameObject.FindGameObjectWithTag("Player2CBC").GetComponent<TMP_Text>();
                 totalAmmo = GameObject.FindGameObjectWithTag("Player2TA").GetComponent<TMP_Text>();
                 break;
+
             case PlayerClasses.Medic:
                 currentBulletCount = GameObject.FindGameObjectWithTag("Player3CBC").GetComponent<TMP_Text>();
                 totalAmmo = GameObject.FindGameObjectWithTag("Player3TA").GetComponent<TMP_Text>();
                 break;
-<<<<<<< HEAD
-            case PlayerClasses.Scout:
-=======
+
             case PlayerClasses.Engineer:
->>>>>>> origin/Development
                 currentBulletCount = GameObject.FindGameObjectWithTag("Player4CBC").GetComponent<TMP_Text>();
                 totalAmmo = GameObject.FindGameObjectWithTag("Player4TA").GetComponent<TMP_Text>();
                 break;

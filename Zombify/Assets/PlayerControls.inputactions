@@ -60,6 +60,14 @@
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "MenuMovement",
+                    "type": "Value",
+                    "id": "2d2d6566-1e5f-4de8-944c-9b675c94ef74",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -238,31 +246,15 @@
                     "action": "AbilityMenu",
                     "isComposite": false,
                     "isPartOfComposite": false
-                }
-            ]
-        },
-        {
-            "name": "Menu",
-            "id": "8e4f036b-214a-4423-a14a-ea1774b971f0",
-            "actions": [
-                {
-                    "name": "New action",
-                    "type": "Button",
-                    "id": "82aa2116-18bf-4356-bab9-359b61837dd8",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": ""
-                }
-            ],
-            "bindings": [
+                },
                 {
                     "name": "",
-                    "id": "7bebd750-3566-497e-941c-c022ed199492",
-                    "path": "",
+                    "id": "3aeb3505-1f91-4fd3-afa2-9724c8f5de0a",
+                    "path": "<Gamepad>/dpad",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "New action",
+                    "action": "MenuMovement",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

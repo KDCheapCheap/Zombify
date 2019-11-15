@@ -73,6 +73,14 @@ public class PlayerControls : IInputActionCollection, IDisposable
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""MenuMovement"",
+                    ""type"": ""Value"",
+                    ""id"": ""2d2d6566-1e5f-4de8-944c-9b675c94ef74"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -251,31 +259,15 @@ public class PlayerControls : IInputActionCollection, IDisposable
                     ""action"": ""AbilityMenu"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
-                }
-            ]
-        },
-        {
-            ""name"": ""Menu"",
-            ""id"": ""8e4f036b-214a-4423-a14a-ea1774b971f0"",
-            ""actions"": [
-                {
-                    ""name"": ""New action"",
-                    ""type"": ""Button"",
-                    ""id"": ""82aa2116-18bf-4356-bab9-359b61837dd8"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """"
-                }
-            ],
-            ""bindings"": [
+                },
                 {
                     ""name"": """",
-                    ""id"": ""7bebd750-3566-497e-941c-c022ed199492"",
-                    ""path"": """",
+                    ""id"": ""3aeb3505-1f91-4fd3-afa2-9724c8f5de0a"",
+                    ""path"": ""<Gamepad>/dpad"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""New action"",
+                    ""action"": ""MenuMovement"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -293,9 +285,7 @@ public class PlayerControls : IInputActionCollection, IDisposable
         m_Gameplay_Ability = m_Gameplay.FindAction("Ability", throwIfNotFound: true);
         m_Gameplay_Sprint = m_Gameplay.FindAction("Sprint", throwIfNotFound: true);
         m_Gameplay_AbilityMenu = m_Gameplay.FindAction("AbilityMenu", throwIfNotFound: true);
-        // Menu
-        m_Menu = asset.FindActionMap("Menu", throwIfNotFound: true);
-        m_Menu_Newaction = m_Menu.FindAction("New action", throwIfNotFound: true);
+        m_Gameplay_MenuMovement = m_Gameplay.FindAction("MenuMovement", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -352,6 +342,7 @@ public class PlayerControls : IInputActionCollection, IDisposable
     private readonly InputAction m_Gameplay_Ability;
     private readonly InputAction m_Gameplay_Sprint;
     private readonly InputAction m_Gameplay_AbilityMenu;
+    private readonly InputAction m_Gameplay_MenuMovement;
     public struct GameplayActions
     {
         private PlayerControls m_Wrapper;
@@ -363,6 +354,7 @@ public class PlayerControls : IInputActionCollection, IDisposable
         public InputAction @Ability => m_Wrapper.m_Gameplay_Ability;
         public InputAction @Sprint => m_Wrapper.m_Gameplay_Sprint;
         public InputAction @AbilityMenu => m_Wrapper.m_Gameplay_AbilityMenu;
+        public InputAction @MenuMovement => m_Wrapper.m_Gameplay_MenuMovement;
         public InputActionMap Get() { return m_Wrapper.m_Gameplay; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -393,6 +385,9 @@ public class PlayerControls : IInputActionCollection, IDisposable
                 AbilityMenu.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnAbilityMenu;
                 AbilityMenu.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnAbilityMenu;
                 AbilityMenu.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnAbilityMenu;
+                MenuMovement.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnMenuMovement;
+                MenuMovement.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnMenuMovement;
+                MenuMovement.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnMenuMovement;
             }
             m_Wrapper.m_GameplayActionsCallbackInterface = instance;
             if (instance != null)
@@ -418,43 +413,13 @@ public class PlayerControls : IInputActionCollection, IDisposable
                 AbilityMenu.started += instance.OnAbilityMenu;
                 AbilityMenu.performed += instance.OnAbilityMenu;
                 AbilityMenu.canceled += instance.OnAbilityMenu;
+                MenuMovement.started += instance.OnMenuMovement;
+                MenuMovement.performed += instance.OnMenuMovement;
+                MenuMovement.canceled += instance.OnMenuMovement;
             }
         }
     }
     public GameplayActions @Gameplay => new GameplayActions(this);
-
-    // Menu
-    private readonly InputActionMap m_Menu;
-    private IMenuActions m_MenuActionsCallbackInterface;
-    private readonly InputAction m_Menu_Newaction;
-    public struct MenuActions
-    {
-        private PlayerControls m_Wrapper;
-        public MenuActions(PlayerControls wrapper) { m_Wrapper = wrapper; }
-        public InputAction @Newaction => m_Wrapper.m_Menu_Newaction;
-        public InputActionMap Get() { return m_Wrapper.m_Menu; }
-        public void Enable() { Get().Enable(); }
-        public void Disable() { Get().Disable(); }
-        public bool enabled => Get().enabled;
-        public static implicit operator InputActionMap(MenuActions set) { return set.Get(); }
-        public void SetCallbacks(IMenuActions instance)
-        {
-            if (m_Wrapper.m_MenuActionsCallbackInterface != null)
-            {
-                Newaction.started -= m_Wrapper.m_MenuActionsCallbackInterface.OnNewaction;
-                Newaction.performed -= m_Wrapper.m_MenuActionsCallbackInterface.OnNewaction;
-                Newaction.canceled -= m_Wrapper.m_MenuActionsCallbackInterface.OnNewaction;
-            }
-            m_Wrapper.m_MenuActionsCallbackInterface = instance;
-            if (instance != null)
-            {
-                Newaction.started += instance.OnNewaction;
-                Newaction.performed += instance.OnNewaction;
-                Newaction.canceled += instance.OnNewaction;
-            }
-        }
-    }
-    public MenuActions @Menu => new MenuActions(this);
     public interface IGameplayActions
     {
         void OnMove(InputAction.CallbackContext context);
@@ -464,9 +429,6 @@ public class PlayerControls : IInputActionCollection, IDisposable
         void OnAbility(InputAction.CallbackContext context);
         void OnSprint(InputAction.CallbackContext context);
         void OnAbilityMenu(InputAction.CallbackContext context);
-    }
-    public interface IMenuActions
-    {
-        void OnNewaction(InputAction.CallbackContext context);
+        void OnMenuMovement(InputAction.CallbackContext context);
     }
 }
