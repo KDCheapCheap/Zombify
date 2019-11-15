@@ -95,12 +95,11 @@ public class EnemyAI : MonoBehaviour
             case Status.Slowed:
                 currentSpeed = baseSpeed / 2;
                 break;
-            case Status.Stunned:
-                break;
             case Status.Posioned:
-                
-            case Status.Confused:
+                StartCoroutine(TakePosionDamage(1, 1));
                 break;
+            case Status.Stunned:
+            case Status.Confused:
             default:
                 currentSpeed = baseSpeed;
                 break;
@@ -138,5 +137,12 @@ public class EnemyAI : MonoBehaviour
             gameObject.SetActive(false); //Change to health--
             Destroy(collision.gameObject);
         }
+    }
+
+    public IEnumerator TakePosionDamage(int damage, float rate)
+    {
+        yield return new WaitForSeconds(rate);
+
+        health -= damage;
     }
 }
