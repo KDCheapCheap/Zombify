@@ -207,6 +207,9 @@ public class InputManager : MonoBehaviour
         controls.Gameplay.MenuMovement.performed += ctx => dPadValue = ctx.ReadValue<Vector2>();
         controls.Gameplay.MenuMovement.canceled += ctx => dPadValue = Vector2.zero;
 
+        controls.Gameplay.MenuSelect.performed += ctx => aValue = ctx.ReadValue<float>();
+        controls.Gameplay.MenuSelect.canceled += ctx => aValue = 0;
+
         #endregion
     }
 

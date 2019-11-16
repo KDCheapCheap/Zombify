@@ -1,27 +1,43 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class AmmoPickup : Ability
 {
-
-
     private float throwDistance = 6; //Distance it goes from player who through it
     private int ammoGiven = 30;
+
+    public Image abilityTreeImage;
+    private Color m_imageColour;
+    private float imageLockedValue = 90f;
+    private float imageUnlockedValue = 255f;
+
     public override void Init()
     {
-        cost = 1;
-        cooldownTime = 10f;
-        playerClass = PlayerController.PlayerClasses.Soldier;
-        player = FindCorrectPlayer();
+        
         Debug.Log(player);
     }
 
     private void Start()
     {
+        cost = 1;
+        cooldownTime = 10f;
+        playerClass = PlayerController.PlayerClasses.Soldier;
+        player = FindCorrectPlayer();
+        m_imageColour.a = imageLockedValue;
+        gameObject.SetActive(false);
+        Debug.Log("Done");
+    }
 
-        //playerRef = GameObject.Find("Soldier").GetComponent<PlayerController>();
+    private void Update()
+    {
+        if(isUnlocked)
+        {
+            m_imageColour.a = imageUnlockedValue;
+        }
 
+        abilityTreeImage.color = m_imageColour;
     }
 
     private void OnEnable()

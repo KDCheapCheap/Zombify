@@ -75,6 +75,10 @@ public class Menu : MonoBehaviour
         //if(!inTransition)
         //Any functionality once hidden goes here (set objects inactive etc etc)
     }
+    protected virtual void Update()
+    {
+        UpdateSelection();
+    }
 
     protected void UpdateSelection()
     {
@@ -97,7 +101,7 @@ public class Menu : MonoBehaviour
 
     protected void CheckSelection(RectTransform currentSelection)
     {
-        currentSelectedAbility = player.skillTree[abilityID];
+        currentSelectedAbility = currentSelectedRect.gameObject.GetComponent<AbilityImage>().abilityRef;
         Color tempColour = currentSelectedRect.gameObject.GetComponent<Image>().color;
         
         if (InputManager.inputInstance.onAPress)

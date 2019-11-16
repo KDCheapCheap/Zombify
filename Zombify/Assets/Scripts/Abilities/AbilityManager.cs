@@ -1,11 +1,12 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class AbilityManager : MonoBehaviour
 {
     public static AbilityManager abilityManagerInstance;
     public Ability[] soldierAbilities; //Holds all abilities, set in inspector
+    public Ability[] engineerAbilities; //Holds all abilities, set in inspector
+    public Ability[] medicAbilities; //Holds all abilities, set in inspector
+    public Ability[] scoutAbilities; //Holds all abilities, set in inspector
 
     //Start and awake Functions
     #region Init
@@ -23,23 +24,31 @@ public class AbilityManager : MonoBehaviour
 
     private void Start()
     {
-        SpawnAllAbilities();
-
+        SpawnAbilities(soldierAbilities);
+        SpawnAbilities(engineerAbilities);
+        SpawnAbilities(medicAbilities);
+        SpawnAbilities(scoutAbilities);
     }
     #endregion 
 
     private void SpawnAllAbilities()
     {
-        foreach (Ability a in soldierAbilities)
+
+    }
+
+    private void SpawnAbilities(Ability[] abilities)
+    {
+        foreach (Ability a in abilities)
         {
-            GameObject abilityToCreate = new GameObject();
-            abilityToCreate = Instantiate(a.gameObject, transform);
-            Debug.Log($"abilityPos: {abilityToCreate.transform.position}");
-            abilityToCreate.GetComponent<Ability>().Init();
-            abilityToCreate.SetActive(false);
-            AssignAbilties(abilityToCreate);
+            //GameObject abilityToCreate = new GameObject();
+            //abilityToCreate = Instantiate(a.gameObject, transform);
+            //Debug.Log($"abilityPos: {abilityToCreate.transform.position}");
+            //abilityToCreate.GetComponent<Ability>().Init();
+            //abilityToCreate.SetActive(false);
+            AssignAbilties(a.gameObject);
         }
     }
+
 
     private void AssignAbilties(GameObject a)
     {

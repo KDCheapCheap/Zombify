@@ -89,9 +89,12 @@ public class PlayerController : MonoBehaviour
         currentBulletCount.text = currentWeapon.currentBulletCount.ToString();
         totalAmmo.text = currentWeapon.totalAmmo.ToString();
 
-        for (int i = 0; i < skillTree.Count - 1; i++)
+        if (skillTree.Count > 0)
         {
-            Debug.Log($"Skill {i}: {skillTree[i].gameObject.name}");
+            for (int i = 0; i < skillTree.Count - 1; i++)
+            {
+                Debug.Log($"Skill {i}: {skillTree[i].gameObject.name}");
+            }
         }
 
         if (!hasWeaponEquipped)

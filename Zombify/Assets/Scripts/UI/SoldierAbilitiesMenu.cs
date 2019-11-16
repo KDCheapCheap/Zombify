@@ -21,9 +21,9 @@ public class SoldierAbilitiesMenu : Menu
         MenuManager.Instance.SidePanelOnShow(this, leftRightPanel);
     }
 
-    private void Update()
+    protected override void Update()
     {
-        UpdateSelection();
+        base.Update();
         CheckSelection(currentSelectedRect);
     }
 
