@@ -116,31 +116,31 @@ public class Spawner : MonoBehaviour
             }
         }
 
-        //for (int i = 0; i < amount; i++)
-        //{
+        for (int i = 0; i < amount; i++)
+        {
 
-        //    if (CheckPlayersInRange() > 0)
-        //    {
-        //        if (SpawnPooler.poolInstance.pooledEnemies[i].activeInHierarchy)
-        //        {
-        //            SpawnPooler.poolInstance.pooledEnemies[i + 1].transform.position = transform.position;
-        //            SpawnPooler.poolInstance.pooledEnemies[i + 1].SetActive(true);
-        //            yield return new WaitForSeconds(spawnDelay);
-        //        }
-        //        else
-        //        {
-        //            SpawnPooler.poolInstance.pooledEnemies[i].transform.position = transform.position;
-        //            SpawnPooler.poolInstance.pooledEnemies[i].SetActive(true);
-        //            yield return new WaitForSeconds(spawnDelay);
-        //        }
-        //    }
-        //    else
-        //    {
-        //        break;
-        //    }
-        //}
+            if (CheckPlayersInRange() > 0)
+            {
+                if (SpawnPooler.poolInstance.pooledEnemies[i].activeInHierarchy)
+                {
+                    SpawnPooler.poolInstance.pooledEnemies[i + 1].transform.position = transform.position;
+                    SpawnPooler.poolInstance.pooledEnemies[i + 1].SetActive(true);
+                    yield return new WaitForSeconds(spawnDelay);
+                }
+                else
+                {
+                    SpawnPooler.poolInstance.pooledEnemies[i].transform.position = transform.position;
+                    SpawnPooler.poolInstance.pooledEnemies[i].SetActive(true);
+                    yield return new WaitForSeconds(spawnDelay);
+                }
+            }
+            else
+            {
+                break;
+            }
+        }
 
-        //yield return null;
+        yield return null;
     }
 
     private void OnDrawGizmos()

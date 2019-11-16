@@ -60,7 +60,7 @@ public class EnemyAI : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (path == null)
+        if (path == null || currentStatus == Status.Stunned)
         {
             return;
         }
@@ -134,4 +134,14 @@ public class EnemyAI : MonoBehaviour
 
         health -= damage;
     }
+
+    public IEnumerator UpdateStatus(Status status_, float timer)
+    {
+        currentStatus = status_;
+
+        yield return new WaitForSeconds(timer);
+
+        currentStatus = Status.Normal;
+    }
+
 }
