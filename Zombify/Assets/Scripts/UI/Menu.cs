@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(RectTransform))]
 public class Menu : MonoBehaviour
@@ -16,12 +17,14 @@ public class Menu : MonoBehaviour
     public RectTransform currentSelection;
     bool isSelectionMoving = false;
     private List<RectTransform> rectsInDirection = new List<RectTransform>();
-    [SerializeField] protected List<RectTransform> totalAbilties = new List<RectTransform>(); //Set in Inspector
+    [SerializeField] protected List<RectTransform> totalAbilties = new List<RectTransform>(); //Set in Inspector - Must match order of character ability list
 
     protected RectTransform currentSelectedRect;
     protected Ability currentSelectedAbility;
     protected Ability currentEquippedAbility;
     protected string abilityName;
+
+    public int abilityID; //SET IN INSPECTOR - based on the skilltree of whatever player the ability is for
 
     private void Start()
     {
@@ -94,17 +97,20 @@ public class Menu : MonoBehaviour
 
     protected void CheckSelection(RectTransform currentSelection)
     {
-        currentSelectedAbility
-
-        if(InputManager.inputInstance.onAPress)
+        currentSelectedAbility = player.skillTree[abilityID];
+        Color tempColour = currentSelectedRect.gameObject.GetComponent<Image>().color;
+        
+        if (InputManager.inputInstance.onAPress)
         {
-            if(!currentSelectedAbility.isUnlocked)
+            if (!currentSelectedAbility.isUnlocked)
             {
-                if(currentSelectedAbility.AttemptBuyAbility())
+                if (currentSelectedAbility.AttemptBuyAbility())
                 {
                     player.equippedAbility = currentSelectedAbility;
                     //Remove price text
                     //set image from faded to normal
+                    tempColour.a = 255;
+                    currentSelectedRect.gameObject.GetComponent<Image>().color = tempColour;
                 }
                 else
                 {

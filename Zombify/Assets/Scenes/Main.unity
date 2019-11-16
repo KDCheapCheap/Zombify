@@ -1568,7 +1568,7 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 19.3
+  m_fontSize: 33.2
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1884,8 +1884,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7a5dfd843c608b4087d7eedcbd744fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  allAbilities:
-  - {fileID: 6781605885054716782, guid: b347e713415bbcf4f8d62f5b9cd40acd, type: 3}
+  soldierAbilities: []
 --- !u!1 &459226450
 GameObject:
   m_ObjectHideFlags: 0
@@ -2254,7 +2253,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.3529412}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -3226,17 +3225,19 @@ MonoBehaviour:
   isShowing: 0
   rect: {fileID: 0}
   parentRect: {fileID: 743237770}
-  skill1: {fileID: 545534741}
-  skill2: {fileID: 2046397409}
-  skill3: {fileID: 1147301440}
-  skill4: {fileID: 475103933}
+  currentSelection: {fileID: 5663157}
   totalAbilties:
   - {fileID: 545534740}
   - {fileID: 2046397408}
   - {fileID: 1147301439}
   - {fileID: 475103932}
   - {fileID: 44260966}
-  currentSelection: {fileID: 5663157}
+  abilityID: 0
+  AmmoPickup: {fileID: 545534739}
+  SMGGift: {fileID: 2046397407}
+  ARGift: {fileID: 475103931}
+  ShotgunGift: {fileID: 1147301438}
+  Grenade: {fileID: 44260965}
 --- !u!114 &1080171365
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5755,7 +5756,7 @@ PrefabInstance:
     - target: {fileID: 7527819698587816626, guid: 721225e76a6a69b45ae07a4ec1a54754,
         type: 3}
       propertyPath: skillTree.Array.size
-      value: 0
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7527819698587816626, guid: 721225e76a6a69b45ae07a4ec1a54754,
         type: 3}
@@ -5771,7 +5772,6 @@ PrefabInstance:
         type: 3}
       propertyPath: skillTree.Array.data[0]
       value: 
-      objectReference: {fileID: 6781605885054716782, guid: b347e713415bbcf4f8d62f5b9cd40acd,
-        type: 3}
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 721225e76a6a69b45ae07a4ec1a54754, type: 3}

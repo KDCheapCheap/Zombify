@@ -5,7 +5,7 @@ using TMPro;
 using UnityEngine.UI;
 public class SoldierAbilitiesMenu : Menu
 {
-    //public Image skill1, skill2, skill3, skill4;
+    public GameObject AmmoPickup, SMGGift, ARGift, ShotgunGift, Grenade;
 
     // Start is called before the first frame update
     void Start()
@@ -24,8 +24,36 @@ public class SoldierAbilitiesMenu : Menu
     private void Update()
     {
         UpdateSelection();
+        CheckSelection(currentSelectedRect);
     }
 
+    private void CheckAbility()
+    {
+        if(currentSelectedRect.gameObject == AmmoPickup)
+        {
+            abilityID = 0;
+        }
 
+        if (currentSelectedRect.gameObject == SMGGift)
+        {
+            abilityID = 1;
+        }
+
+        if (currentSelectedRect.gameObject == ARGift)
+        {
+            abilityID = 2;
+        }
+
+        if (currentSelectedRect.gameObject == ShotgunGift)
+        {
+            abilityID = 3;
+        }
+
+        if (currentSelectedRect.gameObject == Grenade)
+        {
+            abilityID = 4;
+        }
+        
+    }
 
 }

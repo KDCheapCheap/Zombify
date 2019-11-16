@@ -39,7 +39,7 @@ public class PlayerController : MonoBehaviour
     private const float StaminaTimeToRegen = 1.5f;
     #endregion
 
-    [SerializeField] private GameObject gunSpawn = new GameObject();
+    [SerializeField] private GameObject gunSpawn;
 
     private bool hasWeaponEquipped;
     [HideInInspector] public Weapon currentWeapon;

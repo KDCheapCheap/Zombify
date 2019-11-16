@@ -5,7 +5,7 @@ using UnityEngine;
 public class AbilityManager : MonoBehaviour
 {
     public static AbilityManager abilityManagerInstance;
-    public Ability[] allAbilities; //Holds all abilities, set in inspector
+    public Ability[] soldierAbilities; //Holds all abilities, set in inspector
 
     //Start and awake Functions
     #region Init
@@ -30,9 +30,7 @@ public class AbilityManager : MonoBehaviour
 
     private void SpawnAllAbilities()
     {
-
-
-        foreach (Ability a in allAbilities)
+        foreach (Ability a in soldierAbilities)
         {
             GameObject abilityToCreate = new GameObject();
             abilityToCreate = Instantiate(a.gameObject, transform);
