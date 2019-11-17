@@ -257,8 +257,6 @@ GameObject:
   m_Component:
   - component: {fileID: 3196556821286797938}
   - component: {fileID: 3196556821295803814}
-  - component: {fileID: 3196556821286444560}
-  - component: {fileID: 3196556821286444563}
   m_Layer: 0
   m_Name: Medic
   m_TagString: Untagged
@@ -273,16 +271,16 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3196556821286444562}
-  m_LocalRotation: {x: -0.5000001, y: 0.4999999, z: -0.5000001, w: 0.4999999}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.32, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 3196556821286797892}
   - {fileID: 3196556821286797838}
   - {fileID: 3196556821286797858}
   m_Father: {fileID: 3713635018406792542}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: -180, y: -90, z: 89.99999}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &3196556821295803814
 Animator:
   serializedVersion: 3
@@ -302,36 +300,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!136 &3196556821286444560
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3196556821286444562}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.71805775
-  m_Height: 2.91103
-  m_Direction: 1
-  m_Center: {x: 0, y: 1.2581692, z: -0.031526245}
---- !u!54 &3196556821286444563
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3196556821286444562}
-  serializedVersion: 2
-  m_Mass: 500
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 0
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!1 &3196556821286444564
 GameObject:
   m_ObjectHideFlags: 0
@@ -639,7 +607,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3196556821286444644}
-  m_LocalRotation: {x: -0.50000036, y: 0.49999964, z: 0.49999964, w: 0.50000036}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0.7071068, w: 0}
   m_LocalPosition: {x: -0.0000000015575574, y: 1.2235097, z: -0.035632763}
   m_LocalScale: {x: 0.99999994, y: 0.99999994, z: 1}
   m_Children:
@@ -647,7 +615,7 @@ Transform:
   - {fileID: 3196556821286797912}
   m_Father: {fileID: 3196556821286797938}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -90.00001, y: 0, z: 180}
 --- !u!1 &3196556821286444648
 GameObject:
   m_ObjectHideFlags: 0
@@ -1113,9 +1081,11 @@ GameObject:
   m_Component:
   - component: {fileID: 3713635018406792542}
   - component: {fileID: 3713635018406792513}
+  - component: {fileID: 1589496625}
+  - component: {fileID: 1589496626}
   m_Layer: 0
   m_Name: Medic
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1155,13 +1125,43 @@ MonoBehaviour:
   equippedAbility: {fileID: 0}
   Weapons:
   - {fileID: 5242382991221454260, guid: bb832758d72353d4da4a3b3e7d75f64b, type: 3}
-  - {fileID: 0}
+  - {fileID: 6606411822449163670, guid: 939a47382b88d474fa4f5bb3db27c872, type: 3}
   - {fileID: 0}
   - {fileID: 0}
   isGettingAmmo: 0
   gunSpawn: {fileID: 3196556821286444570}
   currentWeapon: {fileID: 0}
-  lookAtPoint: {x: 0, y: 0}
+  lookAtPoint: {x: 0, y: 0, z: 0}
+--- !u!54 &1589496625
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3713635018406792512}
+  serializedVersion: 2
+  m_Mass: 500
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 80
+  m_CollisionDetection: 0
+--- !u!136 &1589496626
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3713635018406792512}
+  m_Material: {fileID: 13400000, guid: b241aa9734d550f40b590ed7db018199, type: 2}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.71805775
+  m_Height: 2.91103
+  m_Direction: 1
+  m_Center: {x: 0, y: 1.2581692, z: -0.031526245}
 --- !u!1001 &3713635018342312416
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1169,10 +1169,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3196556821286797852}
     m_Modifications:
-    - target: {fileID: 100000, guid: 67d7672421a7bfa48b8412b1a52fed70, type: 3}
-      propertyPath: m_Name
-      value: backpack_medic
-      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 67d7672421a7bfa48b8412b1a52fed70, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0
@@ -1216,6 +1212,10 @@ PrefabInstance:
     - target: {fileID: 400000, guid: 67d7672421a7bfa48b8412b1a52fed70, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 67d7672421a7bfa48b8412b1a52fed70, type: 3}
+      propertyPath: m_Name
+      value: backpack_medic
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 67d7672421a7bfa48b8412b1a52fed70, type: 3}

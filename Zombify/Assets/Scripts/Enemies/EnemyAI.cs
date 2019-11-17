@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Pathfinding;
+using UnityEngine.AI;
 
 public class EnemyAI : MonoBehaviour
 {
@@ -20,38 +20,44 @@ public class EnemyAI : MonoBehaviour
         get
         {
             GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+            GameObject decoy = GameObject.FindGameObjectWithTag("Decoy");
             float closestDist = 100;
             GameObject closestPlayer = players[0];
 
             foreach (GameObject p in players)
             {
-                if(Vector3.Distance(transform.position, p.transform.position) < closestDist)
+                float dist = Vector3.Distance(transform.position, p.transform.position);
+
+                if (dist < closestDist)
                 {
                     closestPlayer = p;
+                    closestDist = dist;
                 }
             }
+            float rand = Random.Range(0, 1);
 
-            return closestPlayer.transform;
+            if (decoy != null && rand > 0.5f)
+            {
+                return decoy.transform;
+            }
+            else
+            {
+                return closestPlayer.transform;
+            }
         }
     }
-    private float baseSpeed;
-    public float currentSpeed = 200;
+    private float baseSpeed = 7;
+    public float currentSpeed = 7;
     public float nextWaypointDistance = 3;
     public Status currentStatus;
-
-    Path path;
+    private NavMeshAgent nav;
     int currentWaypoint = 0;
-
-    Seeker seeker;
-    Rigidbody2D rb;
-
     public int health;
 
     void Start()
     {
         baseSpeed = currentSpeed;
-        seeker = GetComponent<Seeker>();
-        rb = GetComponent<Rigidbody2D>();
+        nav = GetComponent<NavMeshAgent>();
         InvokeRepeating("UpdatePath", 0f, .5f);
 
     }
@@ -59,22 +65,12 @@ public class EnemyAI : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (path == null || currentStatus == Status.Stunned)
+        if (currentStatus == Status.Stunned)
         {
             return;
         }
 
-        Vector2 dir = ((Vector2)path.vectorPath[currentWaypoint] - rb.position).normalized;
-        Vector2 force = dir * currentSpeed * Time.deltaTime;
-
-        rb.AddForce(force);
-
-        float dist = Vector2.Distance(rb.position, path.vectorPath[currentWaypoint]);
-
-        if (dist < nextWaypointDistance)
-        {
-            currentWaypoint++;
-        }
+        nav.speed = currentSpeed;
 
         LookAtTarget();
 
@@ -92,7 +88,10 @@ public class EnemyAI : MonoBehaviour
                 currentSpeed = baseSpeed;
                 break;
         }
-
+        if (Vector3.Distance(transform.position, target.position) > .3f)
+        {
+            nav.SetDestination(target.position);
+        }
     }
 
     private void LookAtTarget()
@@ -101,21 +100,6 @@ public class EnemyAI : MonoBehaviour
         float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg;
         Quaternion q = Quaternion.AngleAxis(angle, Vector3.forward);
         transform.rotation = Quaternion.Slerp(transform.rotation, q, Time.deltaTime * currentSpeed);
-    }
-
-    void OnPathComplete(Path p)
-    {
-        if (!p.error)
-        {
-            path = p;
-            currentWaypoint = 0;
-        }
-    }
-
-    void UpdatePath()
-    {
-        if (seeker.IsDone())
-            seeker.StartPath(rb.position, target.position, OnPathComplete);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

@@ -373,7 +373,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1513023642400793997}
-  m_LocalRotation: {x: -0.50000036, y: 0.49999964, z: 0.49999964, w: 0.50000036}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0.7071068, w: 0}
   m_LocalPosition: {x: -0.0000000015575574, y: 1.2235097, z: -0.035632763}
   m_LocalScale: {x: 0.99999994, y: 0.99999994, z: 1}
   m_Children:
@@ -381,7 +381,7 @@ Transform:
   - {fileID: 1513023642401159601}
   m_Father: {fileID: 1513023642401159579}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -90.00001, y: 0, z: 180}
 --- !u!1 &1513023642400794001
 GameObject:
   m_ObjectHideFlags: 0
@@ -1044,8 +1044,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1513023642401159579}
   - component: {fileID: 1513023642408080975}
-  - component: {fileID: 1513023642400794102}
-  - component: {fileID: 1513023642400794101}
   m_Layer: 0
   m_Name: Soldier
   m_TagString: Untagged
@@ -1060,9 +1058,9 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1513023642400794107}
-  m_LocalRotation: {x: -0.5, y: 0.5, z: -0.5, w: 0.5}
-  m_LocalPosition: {x: 0.04707575, y: -0.04726469, z: 0}
-  m_LocalScale: {x: 1.5, y: 1.500001, z: 1.500001}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1513023642401159597}
   - {fileID: 1513023642401159663}
@@ -1070,7 +1068,7 @@ Transform:
   - {fileID: 1513023642401159643}
   m_Father: {fileID: 1622552840924249094}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: -180, y: -90, z: 90}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &1513023642408080975
 Animator:
   serializedVersion: 3
@@ -1090,36 +1088,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!136 &1513023642400794102
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1513023642400794107}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.71805775
-  m_Height: 2.91103
-  m_Direction: 1
-  m_Center: {x: 0, y: 1.2581692, z: -0.031526245}
---- !u!54 &1513023642400794101
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1513023642400794107}
-  serializedVersion: 2
-  m_Mass: 500
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 0
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!1 &1513023642400794109
 GameObject:
   m_ObjectHideFlags: 0
@@ -1195,6 +1163,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1622552840924249094}
   - component: {fileID: 1622552840924249093}
+  - component: {fileID: 3867039947374591082}
+  - component: {fileID: 8212214040060720232}
   m_Layer: 0
   m_Name: Soldier
   m_TagString: Untagged
@@ -1243,7 +1213,37 @@ MonoBehaviour:
   isGettingAmmo: 0
   gunSpawn: {fileID: 1513023642400794099}
   currentWeapon: {fileID: 0}
-  lookAtPoint: {x: 0, y: 0}
+  lookAtPoint: {x: 0, y: 0, z: 0}
+--- !u!136 &3867039947374591082
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1622552840924249092}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.71805775
+  m_Height: 2.91103
+  m_Direction: 1
+  m_Center: {x: 0, y: 1.2581692, z: -0.031526245}
+--- !u!54 &8212214040060720232
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1622552840924249092}
+  serializedVersion: 2
+  m_Mass: 500
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 80
+  m_CollisionDetection: 0
 --- !u!1001 &1622552840297333845
 PrefabInstance:
   m_ObjectHideFlags: 0

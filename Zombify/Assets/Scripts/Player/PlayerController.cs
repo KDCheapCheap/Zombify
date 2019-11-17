@@ -18,15 +18,15 @@ public class PlayerController : MonoBehaviour
 
     public float baseSpeed;
     public int health;
-    [HideInInspector]public PlayerClasses playerClass;
-    [HideInInspector]public Player player;
+    [HideInInspector] public PlayerClasses playerClass;
+    [HideInInspector] public Player player;
 
     public int upgradePoints = 0;
     public List<Ability> skillTree = new List<Ability>();
     public Ability equippedAbility;
 
     public GameObject[] Weapons = new GameObject[4];
-    [HideInInspector]public bool isGettingAmmo = false;
+    [HideInInspector] public bool isGettingAmmo = false;
 
     #region Sprinting Vars
     private float currentStamina = 3.0f;
@@ -50,7 +50,7 @@ public class PlayerController : MonoBehaviour
     private TMP_Text currentBulletCount;
     private TMP_Text totalAmmo;
 
-    public Vector2 lookAtPoint;
+    public Vector3 lookAtPoint;
 
     private Vector2 lookDeadzone
     {
@@ -95,9 +95,9 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private Vector2 GetLookAtPoint()
+    private Vector3 GetLookAtPoint()
     {
-        lookAtPoint = transform.position + new Vector3(player.GetAxis("Look Horizontal") * 10f, player.GetAxis("Look Vertical") * 10f);
+        lookAtPoint = transform.position + new Vector3(player.GetAxis("Look Horizontal") * 10f, 0, player.GetAxis("Look Vertical") * 10f);
 
         return lookAtPoint;
     }
@@ -137,7 +137,7 @@ public class PlayerController : MonoBehaviour
             hasWeaponEquipped = true;
         }
 
-        
+
     }
 
     protected void CheckInput()
@@ -223,12 +223,12 @@ public class PlayerController : MonoBehaviour
 
     public void LookAtStick()
     {
-        float dist = Vector2.Distance(transform.position, GetLookAtPoint());
+        float dist = Vector3.Distance(transform.position, GetLookAtPoint());
         if (dist >= 3)
         {
-            Vector2 dir = (Vector2)transform.position - GetLookAtPoint();/*Input.mousePosition - Camera.main.WorldToScreenPoint(transform.position)*/;
-            float angle = Mathf.Atan2(-dir.y, -dir.x) * Mathf.Rad2Deg;
-            transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+            Vector3 dir = transform.position - GetLookAtPoint();/*Input.mousePosition - Camera.main.WorldToScreenPoint(transform.position)*/;
+            float angle = Mathf.Atan2(dir.z, -dir.x) * Mathf.Rad2Deg;
+            transform.rotation = Quaternion.AngleAxis(angle, Vector3.up);
         }
         //WeaponLookAtStick(currentWeapon);
     }
@@ -248,8 +248,9 @@ public class PlayerController : MonoBehaviour
     public void Movement()
     {
         Vector2 m = new Vector2(player.GetAxis("Move Horizontal"), player.GetAxis("Move Vertical")) * Time.deltaTime * currentSpeed;
+        Vector3 movement = new Vector3(m.x, 0, m.y);
         //transform.Translate(xMovement * Time.deltaTime * currentSpeed, yMovement * Time.deltaTime * currentSpeed, 0, Space.World);
-        transform.Translate(m, Space.World);
+        transform.Translate(movement, Space.World);
     }
 
     public void ChooseAbility()
@@ -295,7 +296,7 @@ public class PlayerController : MonoBehaviour
 
     private void OpenAbilityMenu()
     {
-        switch(playerClass)
+        switch (playerClass)
         {
             case PlayerClasses.Soldier:
                 MenuManager.Instance.Show(MenuManager.Instance.soldierAbilitiesMenu);
@@ -305,7 +306,7 @@ public class PlayerController : MonoBehaviour
 
     private void HideAbilityMenu()
     {
-        switch(playerClass)
+        switch (playerClass)
         {
             case PlayerClasses.Soldier:
                 MenuManager.Instance.Hide(MenuManager.Instance.soldierAbilitiesMenu);

@@ -8,9 +8,15 @@ public class SpawnPooler : MonoBehaviour
     public static SpawnPooler poolInstance;
 
     public List<GameObject> pooledEnemies;
-    public GameObject enemyPrefab;
-    public int amountToPool;
+    public List<GameObject> spawnedEnemies;
+    public List<GameObject> enemyPrefabs;
+    public List<GameObject> spawners;
+    public int waveOneAmount;
+    private int enemyWaveAmount;
+    private const int difficultyIncrease = 7;
 
+    private float spawnDelay = 2;
+    int spawnerCount = 0;
 
     private void Awake()
     {
@@ -27,16 +33,18 @@ public class SpawnPooler : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        pooledEnemies = new List<GameObject>();
-
-        for (int i = 0; i < amountToPool; i++)
+        foreach(GameObject s in GameObject.FindGameObjectsWithTag("Spawner"))
         {
-            GameObject obj = Instantiate(enemyPrefab);
+            spawners.Add(s);
+        }
+
+        for (int i = 0; i < waveOneAmount; i++)
+        {
+            int rand = Random.Range(0, enemyPrefabs.Count - 1);
+            GameObject obj = Instantiate(enemyPrefabs[rand], transform);
             obj.SetActive(false);
             pooledEnemies.Add(obj);
         }
-
-
     }
 
     // Update is called once per frame
@@ -45,15 +53,61 @@ public class SpawnPooler : MonoBehaviour
         
     }
 
-    public GameObject GetPooledEnemy()
+    public void PrepareWave()
     {
-        for (int i = 0; i < pooledEnemies.Count; i++)
+        if(pooledEnemies.Count > 0)
         {
-            if(!pooledEnemies[i].activeInHierarchy)
-            {
-                return pooledEnemies[i];
-            }
+            pooledEnemies.Clear(); // avoid any overheads from previous wave
         }
-        return null;
+        if(spawnedEnemies.Count > 0)
+        {
+            spawnedEnemies.Clear(); //Same as above
+        }
+
+        enemyWaveAmount += enemyWaveAmount / 7; //difficulty curve
+
+        for (int i = 0; i < enemyWaveAmount; i++) //add inactive enemies to the scene
+        {
+            int rand = Random.Range(0, enemyPrefabs.Count);
+            GameObject obj = Instantiate(enemyPrefabs[rand]);
+            obj.SetActive(false);
+            pooledEnemies.Add(obj);
+        }
+    }
+
+    public IEnumerator SpawnWave(int waveNumber)
+    {
+        if(waveNumber % 3 == 0) //decrease the spawndelay every three waves
+        {
+            spawnDelay -= .02f;
+        }
+        if(spawnDelay < .2f) //lock it to .2 to avoid instant spawning after wave 30
+        {
+            spawnDelay = .2f;
+        }
+
+        while (pooledEnemies.Count > 0)
+        {
+            int randSpawner = Random.Range(0, spawners.Count); //choose a random spawner
+            GameObject enemyToSpawn = pooledEnemies[0]; //get the enemy
+
+            //Spawn Enemy
+            enemyToSpawn.transform.position = spawners[randSpawner].transform.position;
+            enemyToSpawn.SetActive(true);
+
+            //change lists respectfully
+            pooledEnemies.Remove(enemyToSpawn);
+            spawnedEnemies.Add(enemyToSpawn);
+            
+            yield return new WaitForSeconds(spawnDelay);
+        }
+    }
+
+    public void ClearList(List<GameObject> list)
+    {
+        foreach(GameObject g in list)
+        {
+            list.Remove(g);
+        }
     }
 }

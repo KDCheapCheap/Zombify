@@ -50,7 +50,7 @@ public class AmmoPickup : Ability
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerEnter(Collider collision)
     {
         PlayerController p = collision.gameObject.GetComponent<PlayerController>();
         if (p != null)
@@ -60,7 +60,7 @@ public class AmmoPickup : Ability
         }
     }
 
-    private void OnTriggerExit2D(Collider2D collision)
+    private void OnTriggerExit(Collider collision)
     {
         PlayerController p = collision.gameObject.GetComponent<PlayerController>();
         if (p != null)
