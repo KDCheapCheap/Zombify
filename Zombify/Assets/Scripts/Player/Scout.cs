@@ -28,6 +28,15 @@ public class Scout : PlayerController
         player = ReInput.players.GetPlayer(3);
     }
 
+    public IEnumerator Invisible(int time)
+    {
+        //make player modle invisable 
+        transform.tag = "Invisable";
+        yield return new WaitForSeconds(time);
+        transform.tag = "Player";
+
+    }
+
     //public override void Update()
     //{
     //    if (InputManager.inputInstance.GetPlayer() == InputManager.inputInstance.scout)

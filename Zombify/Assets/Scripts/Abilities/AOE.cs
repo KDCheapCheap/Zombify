@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AOE : MonoBehaviour
+public class AOE : Ability
 {
     public enum Type
     {
@@ -10,12 +10,42 @@ public class AOE : MonoBehaviour
        Health
     }
 
-    bool isActive;
+    public bool isActive;
+    public int effectRange;
+    public Type myType;
 
     private void Update()
     {
         if (isActive) {
-
+            GetAllNear();
         }
+    }
+
+    private void GetAllNear()
+    {
+        PlayerController[] aiInRange = GameObject.FindObjectsOfType<PlayerController>();
+
+        foreach (PlayerController player_ in aiInRange)
+        {
+            float distanceSqr = (transform.position - player_.transform.position).sqrMagnitude;
+            if (distanceSqr < effectRange)
+            {
+                EffectPlayer(player_);
+            }
+        }
+    }
+
+    private void EffectPlayer(PlayerController effectedBoi)
+    {
+        switch (myType)
+        {
+            case Type.Damage:
+                StartCoroutine(effectedBoi.DamageDouble(10)); 
+                break;
+            case Type.Health:
+                effectedBoi.isHealing = true;
+                break;
+        }
+            
     }
 }

@@ -327,4 +327,13 @@ public class PlayerController : MonoBehaviour
 
         isHealing = false;
     }
+
+    public IEnumerator DamageDouble(int time)
+    {
+        increasedDamage = true;
+
+        yield return new WaitForSeconds(time);
+
+        increasedDamage = false;
+    }
 }
