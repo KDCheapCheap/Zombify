@@ -77,17 +77,16 @@ public class Menu : MonoBehaviour
     }
     protected virtual void Update()
     {
-        UpdateSelection();
     }
 
-    protected void UpdateSelection()
+    protected void UpdateSelection(PlayerController player)
     {
         if (isShowing)
         {
-            if (InputManager.inputInstance.dPadDir != InputManager.DPadDirection.Null)
+            if (player.dPadDir != PlayerController.DPadDirection.Null)
             {
-                rectsInDirection = LocateRectsInDirection(InputManager.inputInstance.dPadDir, totalAbilties);
-                RectTransform next = FindClosestRectInDirection(rectsInDirection, InputManager.inputInstance.dPadDir);
+                rectsInDirection = LocateRectsInDirection(player, player.dPadDir, totalAbilties);
+                RectTransform next = FindClosestRectInDirection(rectsInDirection, player.dPadDir);
 
 
                 if (rectsInDirection.Count > 0 && !isSelectionMoving)
@@ -99,12 +98,12 @@ public class Menu : MonoBehaviour
         }
     }
 
-    protected void CheckSelection(RectTransform currentSelection)
+    protected void CheckSelection(RectTransform currentSelection, PlayerController player)
     {
         currentSelectedAbility = currentSelectedRect.gameObject.GetComponent<AbilityImage>().abilityRef;
         Color tempColour = currentSelectedRect.gameObject.GetComponent<Image>().color;
         
-        if (InputManager.inputInstance.onAPress)
+        if (player.player.GetButtonDown("Menu Select"))
         {
             if (!currentSelectedAbility.isUnlocked)
             {
@@ -147,14 +146,14 @@ public class Menu : MonoBehaviour
         isSelectionMoving = false;
     }
 
-    private RectTransform FindClosestRectInDirection(List<RectTransform> rects, InputManager.DPadDirection dir)
+    private RectTransform FindClosestRectInDirection(List<RectTransform> rects, PlayerController.DPadDirection dir)
     {
         float closestDist = 10000;
         RectTransform closestRect = null;
 
-        switch (InputManager.inputInstance.dPadDir)
+        switch (dir)
         {
-            case InputManager.DPadDirection.Up:
+            case PlayerController.DPadDirection.Up:
                 foreach (RectTransform r in rects)
                 {
                     float dist = Mathf.Abs(currentSelection.anchorMax.y - r.anchorMin.y);
@@ -166,7 +165,7 @@ public class Menu : MonoBehaviour
                 }
                 return closestRect;
 
-            case InputManager.DPadDirection.Down:
+            case PlayerController.DPadDirection.Down:
                 foreach (RectTransform r in rects)
                 {
                     float dist = Mathf.Abs(currentSelection.anchorMin.y - r.anchorMax.y);
@@ -178,7 +177,7 @@ public class Menu : MonoBehaviour
                 }
                 return closestRect;
 
-            case InputManager.DPadDirection.Left:
+            case PlayerController.DPadDirection.Left:
                 foreach (RectTransform r in rects)
                 {
                     float dist = Mathf.Abs(currentSelection.anchorMin.x - r.anchorMax.x);
@@ -190,7 +189,7 @@ public class Menu : MonoBehaviour
                 }
                 return closestRect;
 
-            case InputManager.DPadDirection.Right:
+            case PlayerController.DPadDirection.Right:
 
                 foreach (RectTransform r in rects)
                 {
@@ -208,12 +207,12 @@ public class Menu : MonoBehaviour
         }
     }
 
-    private List<RectTransform> LocateRectsInDirection(InputManager.DPadDirection dir, List<RectTransform> rects)
+    private List<RectTransform> LocateRectsInDirection(PlayerController player, PlayerController.DPadDirection dir, List<RectTransform> rects)
     {
         List<RectTransform> rectsInDir = new List<RectTransform>();
-        switch (InputManager.inputInstance.dPadDir)
+        switch (player.dPadDir)
         {
-            case InputManager.DPadDirection.Up:
+            case PlayerController.DPadDirection.Up:
                 foreach (RectTransform r in rects)
                 {
                     if (r == currentSelectedRect)
@@ -227,7 +226,7 @@ public class Menu : MonoBehaviour
                 }
                 break;
 
-            case InputManager.DPadDirection.Down:
+            case PlayerController.DPadDirection.Down:
                 foreach (RectTransform r in rects)
                 {
                     if (r == currentSelectedRect)
@@ -241,7 +240,7 @@ public class Menu : MonoBehaviour
                 }
                 break;
 
-            case InputManager.DPadDirection.Left:
+            case PlayerController.DPadDirection.Left:
                 foreach (RectTransform r in rects)
                 {
                     if (r == currentSelectedRect)
@@ -256,7 +255,7 @@ public class Menu : MonoBehaviour
                 }
                 break;
 
-            case InputManager.DPadDirection.Right:
+            case PlayerController.DPadDirection.Right:
 
                 foreach (RectTransform r in rects)
                 {

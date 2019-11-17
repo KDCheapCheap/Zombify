@@ -24,7 +24,8 @@ public class SoldierAbilitiesMenu : Menu
     protected override void Update()
     {
         base.Update();
-        CheckSelection(currentSelectedRect);
+        UpdateSelection(Soldier.instance);
+        CheckSelection(currentSelectedRect, Soldier.instance);
     }
 
     private void CheckAbility()

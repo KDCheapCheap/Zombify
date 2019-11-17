@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using EZCameraShake;
 using UnityEngine.UI;
-using UnityEngine.InputSystem;
 using TMPro;
+using Rewired;
 
 public class PlayerController : MonoBehaviour
 {
@@ -19,6 +19,7 @@ public class PlayerController : MonoBehaviour
     public float baseSpeed;
     public int health;
     [HideInInspector]public PlayerClasses playerClass;
+    [HideInInspector]public Player player;
 
     public int upgradePoints = 0;
     public List<Ability> skillTree = new List<Ability>();
@@ -60,11 +61,43 @@ public class PlayerController : MonoBehaviour
 
             return new Vector2(x, y);
         }
-    } 
+    }
+
+    public enum DPadDirection
+    {
+        Up, Down, Left, Right, Null
+    }
+
+    public DPadDirection dPadDir
+    {
+        get
+        {
+            if (player.GetButtonDown("Menu Up"))
+            {
+                return DPadDirection.Up;
+            }
+            else if (player.GetButtonDown("Menu Down"))
+            {
+                return DPadDirection.Down;
+            }
+            else if (player.GetButtonDown("Menu Left"))
+            {
+                return DPadDirection.Left;
+            }
+            else if (player.GetButtonDown("Menu Right"))
+            {
+                return DPadDirection.Right;
+            }
+            else
+            {
+                return DPadDirection.Null;
+            }
+        }
+    }
 
     private Vector2 GetLookAtPoint()
     {
-        lookAtPoint = transform.position + new Vector3(InputManager.inputInstance.lookAtOffset.x * 10f, InputManager.inputInstance.lookAtOffset.y * 10f);
+        lookAtPoint = transform.position + new Vector3(player.GetAxis("Look Horizontal") * 10f, player.GetAxis("Look Vertical") * 10f);
 
         return lookAtPoint;
     }
@@ -107,9 +140,9 @@ public class PlayerController : MonoBehaviour
         
     }
 
-    private void CheckInput()
+    protected void CheckInput()
     {
-        if (InputManager.inputInstance.onRBPressed)
+        if (player.GetButtonDown("Reload"))
         {
             Debug.Log("RB reload");
             currentWeapon.isReloading = true;
@@ -124,12 +157,12 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        if (InputManager.inputInstance.onLBPress)
+        if (player.GetButtonDown("Use Ability"))
         {
             equippedAbility.Use();
         }
 
-        if (InputManager.inputInstance.onBackPress)
+        if (player.GetButtonDown("Open Menu"))
         {
             if (!isShowingAbilityMenu)
             {
@@ -148,7 +181,7 @@ public class PlayerController : MonoBehaviour
     {
         sprintSpeed = currentSpeed + (currentSpeed / 10) * 2;
 
-        if (InputManager.inputInstance.isLTPressed)
+        if (player.GetAxis("Sprint") > .8f)
         {
             if (!isSprinting && currentStamina != 0)
             {
@@ -182,7 +215,7 @@ public class PlayerController : MonoBehaviour
 
     public void Shoot()
     {
-        if (Input.GetMouseButton(0) || InputManager.inputInstance.isRTPressed)
+        if (player.GetAxis("Shoot") > .8f)
         {
             currentWeapon.Shoot();
         }
@@ -195,26 +228,26 @@ public class PlayerController : MonoBehaviour
         {
             Vector2 dir = (Vector2)transform.position - GetLookAtPoint();/*Input.mousePosition - Camera.main.WorldToScreenPoint(transform.position)*/;
             float angle = Mathf.Atan2(-dir.y, -dir.x) * Mathf.Rad2Deg;
-            transform.rotation = Quaternion.AngleAxis(-angle, Vector3.back);
+            transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
         }
-        WeaponLookAtStick(currentWeapon);
+        //WeaponLookAtStick(currentWeapon);
     }
 
-    private void WeaponLookAtStick(Weapon currentWeapon)
-    {
-        float dist = Vector2.Distance(transform.position, GetLookAtPoint()); //Stops the 
+    //private void WeaponLookAtStick(Weapon currentWeapon)
+    //{
+    //    float dist = Vector2.Distance(transform.position, GetLookAtPoint()); //Stops the 
 
-        if (dist >= 5f)
-        {
-            Vector2 dir = (Vector2)currentWeapon.transform.position - GetLookAtPoint();
-            float angle = Mathf.Atan2(-dir.y, -dir.x) * Mathf.Rad2Deg;
-            currentWeapon.transform.rotation = Quaternion.AngleAxis(-angle, Vector3.back);
-        }
-    }
+    //    if (dist >= 5f)
+    //    {
+    //        Vector2 dir = (Vector2)currentWeapon.transform.position - GetLookAtPoint();
+    //        float angle = Mathf.Atan2(-dir.y, -dir.x) * Mathf.Rad2Deg;
+    //        currentWeapon.transform.rotation = Quaternion.AngleAxis(angle, Vector3.back);
+    //    }
+    //}
 
     public void Movement()
     {
-        Vector2 m = new Vector2(InputManager.inputInstance.movementVector.x, InputManager.inputInstance.movementVector.y) * Time.deltaTime * currentSpeed;
+        Vector2 m = new Vector2(player.GetAxis("Move Horizontal"), player.GetAxis("Move Vertical")) * Time.deltaTime * currentSpeed;
         //transform.Translate(xMovement * Time.deltaTime * currentSpeed, yMovement * Time.deltaTime * currentSpeed, 0, Space.World);
         transform.Translate(m, Space.World);
     }

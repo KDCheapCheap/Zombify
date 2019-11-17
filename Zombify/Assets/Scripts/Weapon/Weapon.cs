@@ -31,7 +31,6 @@ public class Weapon : MonoBehaviour
         CameraShaker.Instance.ShakeOnce(.2f, .25f, .01f, .01f);
         canShoot = false;
         StartCoroutine(ShootDelay(fireRate));
-
     }
 
     public virtual IEnumerator ShootDelay(float t)
@@ -39,8 +38,6 @@ public class Weapon : MonoBehaviour
         yield return new WaitForSeconds(t);
         canShoot = true;
     }
-
-    //https://www.youtube.com/watch?v=aLpixrPvlB8
 
     public virtual IEnumerator Reload(float reloadSpeed)
     {

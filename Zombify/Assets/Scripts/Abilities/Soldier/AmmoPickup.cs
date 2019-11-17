@@ -32,12 +32,14 @@ public class AmmoPickup : Ability
 
     private void Update()
     {
-        if(isUnlocked)
+        if (isUnlocked)
         {
             m_imageColour.a = imageUnlockedValue;
         }
-
-        abilityTreeImage.color = m_imageColour;
+        else
+        {
+            abilityTreeImage.color = m_imageColour;
+        }
     }
 
     private void OnEnable()
@@ -101,9 +103,4 @@ public class AmmoPickup : Ability
         yield return null;
     }
 
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.blue;
-        Gizmos.DrawSphere(transform.position, 1);
-    }
 }

@@ -17,7 +17,6 @@ public class EnemyAI : MonoBehaviour
 
     public Transform target
     {
-
         get
         {
             GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
