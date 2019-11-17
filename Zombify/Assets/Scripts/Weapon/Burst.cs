@@ -14,14 +14,14 @@ public class Burst : Weapon
         isBurstShooting = false;
     }
 
-    public override void Shoot()
+    public override void Shoot(bool increasedDamage)
     {
         //base.Shoot();
         if (!isBurstShooting)
         {
             if (currentBulletCount > 0)
             {
-                StartCoroutine(BurstSpawn());
+                StartCoroutine(BurstSpawn(increasedDamage));
             }
             else if (currentBulletCount <= 0)
             {
@@ -31,23 +31,24 @@ public class Burst : Weapon
         }
     }
 
-    public IEnumerator BurstSpawn()
+    public IEnumerator BurstSpawn(bool increasedDamage)
     {
         isBurstShooting = true;
         for (int i = 0; i < burstAmount; i++)
         {
             yield return new WaitForSeconds(burstRate);
-            SpawnBullet();
+            SpawnBullet(increasedDamage);
         }
 
         StartCoroutine(ShootDelay(fireRate));
     }
 
-    public override void SpawnBullet()
+    public override void SpawnBullet(bool increasedDamage)
     {
         if (currentBulletCount > 0)
         {
-            Instantiate(bullet, shootPoint.transform.position, shootPoint.transform.rotation);
+            Bullet bullet_ = Instantiate(bullet, shootPoint.transform.position, shootPoint.transform.rotation) as Bullet;
+            if (increasedDamage) { bullet_.damage *= 2; } 
             currentBulletCount -= 1;
             CameraShaker.Instance.ShakeOnce(2, 2.5f, .1f, .1f);
         }

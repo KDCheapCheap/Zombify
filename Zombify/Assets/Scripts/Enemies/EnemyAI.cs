@@ -93,6 +93,11 @@ public class EnemyAI : MonoBehaviour
                 break;
         }
 
+        if (health >= 0)
+        {
+            Die();
+        }
+
     }
 
     private void LookAtTarget()
@@ -122,7 +127,8 @@ public class EnemyAI : MonoBehaviour
     {
         if(collision.gameObject.CompareTag("Bullet"))
         {
-            gameObject.SetActive(false); //Change to health--
+            Bullet bullet = collision.GetComponent<Bullet>();
+            health -= bullet.damage; 
             Destroy(collision.gameObject);
         }
     }
@@ -143,4 +149,9 @@ public class EnemyAI : MonoBehaviour
         currentStatus = Status.Normal;
     }
 
+    public void Die()
+    {
+        gameObject.SetActive(false);
+        //add back to pool
+    } 
 }

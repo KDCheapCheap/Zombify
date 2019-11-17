@@ -9,7 +9,7 @@ public class Weapon : MonoBehaviour
     public int damage;
     public float fireRate;
     public float reloadSpeed;
-    public GameObject bullet;
+    public Bullet bullet;
     public GameObject shootPoint;
     public bool canShoot = true;
     public bool isReloading = false;
@@ -18,15 +18,15 @@ public class Weapon : MonoBehaviour
     [HideInInspector] public int magSize;
     [HideInInspector] public int currentBulletCount;
 
-    public virtual void Shoot()
+    public virtual void Shoot(bool increasedDamage)
     {
         StartCoroutine(ShootDelay(fireRate));
     }
 
-    public virtual void SpawnBullet()
+    public virtual void SpawnBullet(bool increasedDamage)
     {
-
-        Instantiate(bullet, shootPoint.transform.position, shootPoint.transform.rotation);
+        Bullet bullet_ = Instantiate(bullet, shootPoint.transform.position, shootPoint.transform.rotation) as Bullet;
+        if (increasedDamage) { bullet_.damage *= 2; }
         currentBulletCount -= 1;
         CameraShaker.Instance.ShakeOnce(.2f, .25f, .01f, .01f);
         canShoot = false;
