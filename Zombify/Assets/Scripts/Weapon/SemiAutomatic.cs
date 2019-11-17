@@ -5,12 +5,12 @@ using UnityEngine;
 public class SemiAutomatic : Weapon
 {
 
-    public override void Shoot()
+    public override void Shoot(bool increasedDamage)
     {
         //base.Shoot();
         if (canShoot && currentBulletCount > 0)
         {
-            SpawnBullet();
+            SpawnBullet(increasedDamage);
         }
         else if (currentBulletCount <= 0)
         {

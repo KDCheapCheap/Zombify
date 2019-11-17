@@ -52,6 +52,9 @@ public class PlayerController : MonoBehaviour
 
     public Vector3 lookAtPoint;
 
+    public bool isHealing;
+    public bool increasedDamage;
+
     private Vector2 lookDeadzone
     {
         get
@@ -136,7 +139,10 @@ public class PlayerController : MonoBehaviour
             currentWeapon = newWeapon.GetComponent<Weapon>();
             hasWeaponEquipped = true;
         }
-
+        if (isHealing)
+        {
+            StartCoroutine(HealMe(3));
+        }
 
     }
 
@@ -217,7 +223,7 @@ public class PlayerController : MonoBehaviour
     {
         if (player.GetAxis("Shoot") > .8f)
         {
-            currentWeapon.Shoot();
+            currentWeapon.Shoot(increasedDamage);
         }
     }
 
@@ -312,5 +318,23 @@ public class PlayerController : MonoBehaviour
                 MenuManager.Instance.Hide(MenuManager.Instance.soldierAbilitiesMenu);
                 break;
         }
+    }
+
+    private IEnumerator HealMe(int time)
+    {
+        if (isHealing) health++;
+        
+        yield return new WaitForSeconds(time);
+
+        isHealing = false;
+    }
+
+    public IEnumerator DamageDouble(int time)
+    {
+        increasedDamage = true;
+
+        yield return new WaitForSeconds(time);
+
+        increasedDamage = false;
     }
 }

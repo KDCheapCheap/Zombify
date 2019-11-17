@@ -88,10 +88,19 @@ public class EnemyAI : MonoBehaviour
                 currentSpeed = baseSpeed;
                 break;
         }
+<<<<<<< HEAD
         if (Vector3.Distance(transform.position, target.position) > .3f)
         {
             nav.SetDestination(target.position);
         }
+=======
+
+        if (health >= 0)
+        {
+            Die();
+        }
+
+>>>>>>> origin/Development
     }
 
     private void LookAtTarget()
@@ -106,7 +115,8 @@ public class EnemyAI : MonoBehaviour
     {
         if(collision.gameObject.CompareTag("Bullet"))
         {
-            gameObject.SetActive(false); //Change to health--
+            Bullet bullet = collision.GetComponent<Bullet>();
+            health -= bullet.damage; 
             Destroy(collision.gameObject);
         }
     }
@@ -127,4 +137,9 @@ public class EnemyAI : MonoBehaviour
         currentStatus = Status.Normal;
     }
 
+    public void Die()
+    {
+        gameObject.SetActive(false);
+        //add back to pool
+    } 
 }

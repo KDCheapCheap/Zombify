@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Automatic : Weapon
 {
-    public override void Shoot()
+    public override void Shoot(bool increasedDamage)
     {
-        SpawnBullet();
+        SpawnBullet(increasedDamage);
     }
 }

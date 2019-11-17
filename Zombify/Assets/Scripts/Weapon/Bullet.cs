@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-
+    public int damage = 1;
     float speed = 50;
     bool hasHit = false;
     public ParticleSystem motion;

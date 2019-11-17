@@ -11,7 +11,7 @@ public class Grenade : Ability
         Poison
     }
 
-    public float explodTimer;
+    public float explodeTimer;
     public int explosionRadius;
     public GrenadeType myType;
     [SerializeField]private int damage;
@@ -19,16 +19,9 @@ public class Grenade : Ability
 
     public void Start()
     {
-        //StartCoroutine(ExplodeAfter(explodTimer))
+        StartCoroutine(ExplodeAfter(explodeTimer));
     }
 
-    public void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            Explode(explosionRadius);
-        }
-    }
 
     private IEnumerator ExplodeAfter(float timeToExplode)
     {
