@@ -11,13 +11,6 @@ TagManager:
   - SmokeTrail
   - Spawner
   - Bullet
-  - GunBarrel
-  - GunClip
-  - GunMuzzle
-  - GunBody
-  - GunSight
-  - GunStock
-  - GunFlash
   - Player1CBC
   - Player2CBC
   - Player3CBC
@@ -26,6 +19,10 @@ TagManager:
   - Player2TA
   - Player3TA
   - Player4TA
+  - Destroyable
+  - Decoy
+  - Pistol
+  - AR
   layers:
   - Default
   - TransparentFX

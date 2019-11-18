@@ -42,7 +42,7 @@ GameObject:
   - component: {fileID: 7103852206565775938}
   m_Layer: 0
   m_Name: Pistol
-  m_TagString: Untagged
+  m_TagString: Pistol
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -77,7 +77,7 @@ MonoBehaviour:
   damage: 0
   fireRate: 0
   reloadSpeed: 0
-  bullet: {fileID: 522107544352622433, guid: 06ddfc41bc316b2498b6f5b5f877cf89, type: 3}
+  bullet: {fileID: 6754247999103967819, guid: 06ddfc41bc316b2498b6f5b5f877cf89, type: 3}
   shootPoint: {fileID: 2298462417490837297}
   canShoot: 1
   isReloading: 0

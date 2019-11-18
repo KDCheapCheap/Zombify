@@ -37,14 +37,14 @@ public class SpawnPooler : MonoBehaviour
         {
             spawners.Add(s);
         }
-
-        for (int i = 0; i < waveOneAmount; i++)
-        {
-            int rand = Random.Range(0, enemyPrefabs.Count - 1);
-            GameObject obj = Instantiate(enemyPrefabs[rand], transform);
-            obj.SetActive(false);
-            pooledEnemies.Add(obj);
-        }
+        enemyWaveAmount = waveOneAmount;
+        //for (int i = 0; i < waveOneAmount; i++)
+        //{
+        //    int rand = Random.Range(0, enemyPrefabs.Count - 1);
+        //    GameObject obj = Instantiate(enemyPrefabs[rand], transform);
+        //    obj.SetActive(false);
+        //    pooledEnemies.Add(obj);
+        //}
     }
 
     // Update is called once per frame
@@ -101,6 +101,8 @@ public class SpawnPooler : MonoBehaviour
             
             yield return new WaitForSeconds(spawnDelay);
         }
+
+        yield return null;
     }
 
     public void ClearList(List<GameObject> list)

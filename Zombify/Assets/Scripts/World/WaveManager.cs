@@ -7,10 +7,8 @@ public class WaveManager : MonoBehaviour
     public static WaveManager instance;
 
     [HideInInspector] public bool startGame = false; //UI Element and press enter on keyboard to start
-    private bool inIntermission = false;
-    private bool inWave = false;
    [HideInInspector] public bool isChecking = false;
-    private int waveNumber;
+    private int waveNumber = 0;
     private float intermissionTime = 3;
 
     private void Awake()
@@ -34,23 +32,17 @@ public class WaveManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (inWave)
-        {
-            if (!isChecking)
-            {
-                InvokeRepeating("CheckWave", 15, 5);
-            }
-        }
+
     }
 
     private void StartWave()
     {
-        inWave = true;
         StartCoroutine(SpawnPooler.poolInstance.SpawnWave(waveNumber));
+        InvokeRepeating("CheckWave", 15, 5);
     }
 
     private void CheckWave()
-    {
+    { 
         if (SpawnPooler.poolInstance.spawnedEnemies.Count == 0)
         {
             EndWave(); //WHEN ENEMY DIES, REMOVE IT FROM THE SPAWNED LIST
@@ -59,11 +51,9 @@ public class WaveManager : MonoBehaviour
 
     private IEnumerator WaveIntermission()
     {
-        inIntermission = true;
         SpawnPooler.poolInstance.PrepareWave();
         yield return new WaitForSeconds(intermissionTime);
         waveNumber += 1;
-        inIntermission = false;
         StartWave();
         //bool false
         yield return null;
@@ -74,7 +64,8 @@ public class WaveManager : MonoBehaviour
         //recycle all lists so we can start fresh next wave
         SpawnPooler.poolInstance.pooledEnemies.Clear();
         SpawnPooler.poolInstance.spawnedEnemies.Clear();
-        inWave = false;
+
+        CancelInvoke();
         StartCoroutine(WaveIntermission());
     }
 

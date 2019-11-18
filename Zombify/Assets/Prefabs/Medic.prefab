@@ -256,7 +256,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3196556821286797938}
-  - component: {fileID: 3196556821295803814}
   m_Layer: 0
   m_Name: Medic
   m_TagString: Untagged
@@ -281,25 +280,6 @@ Transform:
   m_Father: {fileID: 3713635018406792542}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!95 &3196556821295803814
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3196556821286444562}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 317bd1d2b778cf0448b311d615661b6e, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 1
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 1
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &3196556821286444564
 GameObject:
   m_ObjectHideFlags: 0
@@ -1083,6 +1063,7 @@ GameObject:
   - component: {fileID: 3713635018406792513}
   - component: {fileID: 1589496625}
   - component: {fileID: 1589496626}
+  - component: {fileID: 4027491197105465249}
   m_Layer: 0
   m_Name: Medic
   m_TagString: Player
@@ -1132,6 +1113,8 @@ MonoBehaviour:
   gunSpawn: {fileID: 3196556821286444570}
   currentWeapon: {fileID: 0}
   lookAtPoint: {x: 0, y: 0, z: 0}
+  isHealing: 0
+  increasedDamage: 0
 --- !u!54 &1589496625
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1162,6 +1145,25 @@ CapsuleCollider:
   m_Height: 2.91103
   m_Direction: 1
   m_Center: {x: 0, y: 1.2581692, z: -0.031526245}
+--- !u!95 &4027491197105465249
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3713635018406792512}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: 317bd1d2b778cf0448b311d615661b6e, type: 3}
+  m_Controller: {fileID: 9100000, guid: eef80c70442705744b408204130f56bd, type: 2}
+  m_CullingMode: 1
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1001 &3713635018342312416
 PrefabInstance:
   m_ObjectHideFlags: 0

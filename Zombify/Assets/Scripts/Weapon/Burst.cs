@@ -14,13 +14,14 @@ public class Burst : Weapon
         isBurstShooting = false;
     }
 
-    public override void Shoot(bool increasedDamage)
+    public override void Shoot(bool increasedDamage, Animator anim)
     {
         //base.Shoot();
         if (!isBurstShooting)
         {
             if (currentBulletCount > 0)
             {
+                anim.SetTrigger("Shoot");
                 StartCoroutine(BurstSpawn(increasedDamage));
             }
             else if (currentBulletCount <= 0)

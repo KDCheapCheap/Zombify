@@ -18,7 +18,12 @@ public class Weapon : MonoBehaviour
     [HideInInspector] public int magSize;
     [HideInInspector] public int currentBulletCount;
 
-    public virtual void Shoot(bool increasedDamage)
+    public virtual void Shoot(bool increasedDamage, Animator anim)
+    {
+        StartCoroutine(ShootDelay(fireRate));
+    }
+
+    public virtual void Shoot()
     {
         StartCoroutine(ShootDelay(fireRate));
     }

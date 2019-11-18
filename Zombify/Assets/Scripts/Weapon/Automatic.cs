@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class Automatic : Weapon
 {
-    public override void Shoot(bool increasedDamage)
+    public override void Shoot(bool increasedDamage, Animator anim)
     {
+        anim.SetTrigger("Shoot");
         SpawnBullet(increasedDamage);
     }
 }

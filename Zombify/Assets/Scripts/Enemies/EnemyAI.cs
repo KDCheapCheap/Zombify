@@ -12,7 +12,8 @@ public class EnemyAI : MonoBehaviour
         Stunned,
         Posioned,
         Slowed,
-        Confused
+        Confused,
+        Distracted
     }
 
     public Transform target
@@ -34,10 +35,11 @@ public class EnemyAI : MonoBehaviour
                     closestDist = dist;
                 }
             }
-            float rand = Random.Range(0, 1);
+            float rand = Random.Range(0f, 1f);
 
-            if (decoy != null && rand > 0.5f)
+            if (decoy != null && rand > 0.7f)
             {
+                currentStatus = Status.Distracted;
                 return decoy.transform;
             }
             else
@@ -58,8 +60,7 @@ public class EnemyAI : MonoBehaviour
     {
         baseSpeed = currentSpeed;
         nav = GetComponent<NavMeshAgent>();
-        InvokeRepeating("UpdatePath", 0f, .5f);
-
+        health = 3;
     }
 
 
@@ -68,6 +69,18 @@ public class EnemyAI : MonoBehaviour
         if (currentStatus == Status.Stunned)
         {
             return;
+        }
+        if(currentStatus == Status.Distracted)
+        {
+            if(GameObject.FindGameObjectWithTag("Decoy") != null)
+            {
+                return;
+            }
+            else
+            {
+                currentStatus = Status.Normal;
+            }
+            
         }
 
         nav.speed = currentSpeed;
@@ -88,19 +101,16 @@ public class EnemyAI : MonoBehaviour
                 currentSpeed = baseSpeed;
                 break;
         }
-<<<<<<< HEAD
+
         if (Vector3.Distance(transform.position, target.position) > .3f)
         {
             nav.SetDestination(target.position);
         }
-=======
 
-        if (health >= 0)
+        if (health <= 0)
         {
             Die();
         }
-
->>>>>>> origin/Development
     }
 
     private void LookAtTarget()
@@ -111,13 +121,11 @@ public class EnemyAI : MonoBehaviour
         transform.rotation = Quaternion.Slerp(transform.rotation, q, Time.deltaTime * currentSpeed);
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerEnter(Collider collision)
     {
         if(collision.gameObject.CompareTag("Bullet"))
         {
-            Bullet bullet = collision.GetComponent<Bullet>();
-            health -= bullet.damage; 
-            Destroy(collision.gameObject);
+            health -= collision.gameObject.GetComponent<Bullet>().damage; 
         }
     }
 
@@ -139,7 +147,7 @@ public class EnemyAI : MonoBehaviour
 
     public void Die()
     {
-        gameObject.SetActive(false);
-        //add back to pool
+        Destroy(gameObject, .1f);
+        SpawnPooler.poolInstance.spawnedEnemies.Remove(gameObject);
     } 
 }

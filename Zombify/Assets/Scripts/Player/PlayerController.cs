@@ -1,8 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor;
 using EZCameraShake;
 using UnityEngine.UI;
+using UnityEngine.Animations;
 using TMPro;
 using Rewired;
 
@@ -20,12 +22,13 @@ public class PlayerController : MonoBehaviour
     public int health;
     [HideInInspector] public PlayerClasses playerClass;
     [HideInInspector] public Player player;
+    public Animator anim;
 
     public int upgradePoints = 0;
     public List<Ability> skillTree = new List<Ability>();
     public Ability equippedAbility;
 
-    public GameObject[] Weapons = new GameObject[4];
+    public List<GameObject> Weapons = new List<GameObject>();
     [HideInInspector] public bool isGettingAmmo = false;
 
     #region Sprinting Vars
@@ -43,7 +46,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private GameObject gunSpawn;
 
     private bool hasWeaponEquipped;
-    [HideInInspector] public Weapon currentWeapon;
+    /*[HideInInspector]*/
+    public Weapon currentWeapon;
     private float currentSpeed;
     private float sprintSpeed;
 
@@ -51,6 +55,7 @@ public class PlayerController : MonoBehaviour
     private TMP_Text totalAmmo;
 
     public Vector3 lookAtPoint;
+    private GameObject currentWeaponObject;
 
     public bool isHealing;
     public bool increasedDamage;
@@ -109,8 +114,17 @@ public class PlayerController : MonoBehaviour
 
     public virtual void Start()
     {
+        anim = GetComponent<Animator>();
         currentSpeed = baseSpeed;
+        //currentWeapon = Weapons[0].GetComponent<Weapon>();
         currentWeapon = Weapons[0].GetComponent<Weapon>();
+        if (!hasWeaponEquipped)
+        {
+            GameObject newWeapon = Instantiate(currentWeapon.gameObject, gunSpawn.transform.position, gunSpawn.transform.rotation, gunSpawn.transform);
+            currentWeaponObject = newWeapon;
+            currentWeapon = newWeapon.GetComponent<Weapon>();
+            hasWeaponEquipped = true;
+        }
         GetUI();
     }
 
@@ -121,6 +135,8 @@ public class PlayerController : MonoBehaviour
         CheckInput();
         Sprint();
         Shoot();
+        CheckAnimation();
+        SwitchWeapon(currentWeapon);
 
         currentBulletCount.text = currentWeapon.currentBulletCount.ToString();
         totalAmmo.text = currentWeapon.totalAmmo.ToString();
@@ -133,12 +149,7 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        if (!hasWeaponEquipped)
-        {
-            GameObject newWeapon = Instantiate(currentWeapon.gameObject, gunSpawn.transform.position, gunSpawn.transform.rotation, gunSpawn.transform);
-            currentWeapon = newWeapon.GetComponent<Weapon>();
-            hasWeaponEquipped = true;
-        }
+        
         if (isHealing)
         {
             StartCoroutine(HealMe(3));
@@ -183,6 +194,50 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    protected void CheckAnimation()
+    {
+        if (player.GetAxis("Move Horizontal") < 0.6f && player.GetAxis("Move Horizontal") > 0.1f
+            || player.GetAxis("Move Horizontal") > -0.6f && player.GetAxis("Move Horizontal") < -0.1f
+            || player.GetAxis("Move Vertical") < 0.6f && player.GetAxis("Move Vertical") > 0.1f
+            || player.GetAxis("Move Vertical") > -0.6f && player.GetAxis("Move Vertical") < -0.1f)
+        {
+            anim.SetBool("isWalking", true);
+            anim.SetBool("isRunning", false);
+        }
+        else
+        {
+            anim.SetBool("isWalking", false);
+            anim.SetBool("isRunning", false);
+        }
+        if ((player.GetAxis("Move Horizontal") > 0.6f || player.GetAxis("Move Horizontal") < -0.6f
+            || player.GetAxis("Move Vertical") > 0.6f || player.GetAxis("Move Vertical") < -0.6f))
+        {
+            anim.SetBool("isRunning", true);
+            anim.SetBool("isWalking", false);
+        }
+        else
+        {
+            anim.SetBool("isRunning", false);
+            //anim.SetBool("isWalking", false);
+        }
+
+        if(currentWeapon.isReloading)
+        {
+            anim.SetTrigger("Reload");
+        }
+
+        string wep = currentWeapon.gameObject.name;
+        if (wep.Contains("Pistol"))
+        {
+            //use pistol anim Layer
+
+        }
+        else
+        {
+            //play other animation layer
+        }
+    }
+
     public void Sprint()
     {
         sprintSpeed = currentSpeed + (currentSpeed / 10) * 2;
@@ -223,7 +278,78 @@ public class PlayerController : MonoBehaviour
     {
         if (player.GetAxis("Shoot") > .8f)
         {
-            currentWeapon.Shoot(increasedDamage);
+            currentWeapon.Shoot(increasedDamage, anim);
+        }
+    }
+
+    public void SwitchWeapon(Weapon wep)
+    {
+        if (player.GetButtonDown("Weapon Switch"))
+        {
+            switch (wep.tag)
+            {
+                case "Pistol":
+                    if (Weapons[1] != null)
+                    {
+                        Destroy(currentWeaponObject);
+                        GameObject newWeapon = Instantiate(Weapons[1], gunSpawn.transform.position, gunSpawn.transform.rotation, gunSpawn.transform);
+                        currentWeaponObject = newWeapon;
+                        currentWeapon = newWeapon.GetComponent<Weapon>();
+                        //currentWeapon = Weapons[1].GetComponent<Weapon>();
+                    }
+                    break;
+
+                case "SMG":
+                    if (Weapons[2] != null)
+                    {
+                        Destroy(currentWeapon.gameObject);
+                        GameObject newWeapon = Instantiate(Weapons[2], gunSpawn.transform.position, gunSpawn.transform.rotation, gunSpawn.transform);
+                        currentWeaponObject = newWeapon;
+                        currentWeapon = newWeapon.GetComponent<Weapon>();
+                        //currentWeapon = Weapons[1].GetComponent<Weapon>();
+                    }
+                    else
+                    {
+                        Destroy(currentWeapon.gameObject);
+                        GameObject newWeapon = Instantiate(Weapons[0], gunSpawn.transform.position, gunSpawn.transform.rotation, gunSpawn.transform);
+                        currentWeaponObject = newWeapon;
+                        currentWeapon = newWeapon.GetComponent<Weapon>();
+                    }
+                    break;
+
+                case "Shotgun":
+                    if (Weapons[3] != null)
+                    {
+                        Destroy(currentWeapon.gameObject);
+                        GameObject newWeapon = Instantiate(Weapons[3], gunSpawn.transform.position, gunSpawn.transform.rotation, gunSpawn.transform);
+                        currentWeaponObject = newWeapon;
+                        currentWeapon = newWeapon.GetComponent<Weapon>();
+                        //currentWeapon = Weapons[1].GetComponent<Weapon>();
+                    }
+                    else
+                    {
+                        Destroy(currentWeapon.gameObject);
+                        GameObject newWeapon = Instantiate(Weapons[0], gunSpawn.transform.position, gunSpawn.transform.rotation, gunSpawn.transform);
+                        currentWeaponObject = newWeapon;
+                        currentWeapon = newWeapon.GetComponent<Weapon>();
+                    }
+                    break;
+
+                case "AR":
+                    if (Weapons[0] != null)
+                    {
+                        Destroy(currentWeapon.gameObject);
+                        GameObject newWeapon = Instantiate(Weapons[0], gunSpawn.transform.position, gunSpawn.transform.rotation, gunSpawn.transform);
+                        currentWeaponObject = newWeapon;
+                        currentWeapon = newWeapon.GetComponent<Weapon>();
+                        //currentWeapon = Weapons[1].GetComponent<Weapon>();
+                    }
+                    break;
+
+
+
+
+            }
         }
     }
 
@@ -254,6 +380,7 @@ public class PlayerController : MonoBehaviour
     public void Movement()
     {
         Vector2 m = new Vector2(player.GetAxis("Move Horizontal"), player.GetAxis("Move Vertical")) * Time.deltaTime * currentSpeed;
+
         Vector3 movement = new Vector3(m.x, 0, m.y);
         //transform.Translate(xMovement * Time.deltaTime * currentSpeed, yMovement * Time.deltaTime * currentSpeed, 0, Space.World);
         transform.Translate(movement, Space.World);
@@ -323,7 +450,7 @@ public class PlayerController : MonoBehaviour
     private IEnumerator HealMe(int time)
     {
         if (isHealing) health++;
-        
+
         yield return new WaitForSeconds(time);
 
         isHealing = false;

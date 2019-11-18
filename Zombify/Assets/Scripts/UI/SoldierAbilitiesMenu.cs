@@ -28,33 +28,4 @@ public class SoldierAbilitiesMenu : Menu
         CheckSelection(currentSelectedRect, Soldier.instance);
     }
 
-    private void CheckAbility()
-    {
-        if(currentSelectedRect.gameObject == AmmoPickup)
-        {
-            abilityID = 0;
-        }
-
-        if (currentSelectedRect.gameObject == SMGGift)
-        {
-            abilityID = 1;
-        }
-
-        if (currentSelectedRect.gameObject == ARGift)
-        {
-            abilityID = 2;
-        }
-
-        if (currentSelectedRect.gameObject == ShotgunGift)
-        {
-            abilityID = 3;
-        }
-
-        if (currentSelectedRect.gameObject == Grenade)
-        {
-            abilityID = 4;
-        }
-        
-    }
-
 }

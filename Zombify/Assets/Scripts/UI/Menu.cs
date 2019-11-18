@@ -85,14 +85,14 @@ public class Menu : MonoBehaviour
         {
             if (player.dPadDir != PlayerController.DPadDirection.Null)
             {
-                rectsInDirection = LocateRectsInDirection(player, player.dPadDir, totalAbilties);
+                rectsInDirection = LocateRectsInDirection(player, totalAbilties);
                 RectTransform next = FindClosestRectInDirection(rectsInDirection, player.dPadDir);
 
 
                 if (rectsInDirection.Count > 0 && !isSelectionMoving)
                 {
                     StartCoroutine(MoveSelection(currentSelection, next, .1f));
-
+                    rectsInDirection.Clear();
                 }
             }
         }
@@ -207,7 +207,7 @@ public class Menu : MonoBehaviour
         }
     }
 
-    private List<RectTransform> LocateRectsInDirection(PlayerController player, PlayerController.DPadDirection dir, List<RectTransform> rects)
+    private List<RectTransform> LocateRectsInDirection(PlayerController player, List<RectTransform> rects)
     {
         List<RectTransform> rectsInDir = new List<RectTransform>();
         switch (player.dPadDir)
@@ -250,6 +250,7 @@ public class Menu : MonoBehaviour
 
                     if (r.anchorMax.x < currentSelection.anchorMin.x)
                     {
+                        Debug.Log($"Rect Name: {r.name} Rect AnchMax: {r.anchorMax.x} current anchmin: {currentSelection.anchorMin.x}");
                         rectsInDir.Add(r);
                     }
                 }
