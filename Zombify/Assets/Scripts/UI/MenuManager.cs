@@ -51,13 +51,13 @@ public class MenuManager : MonoBehaviour
                 SidePanelHide(menu, true);
                 break;
             case Menu.MenuType.BottomPanel:
-                TopBottomPanelOnShow(menu, true);
+                TopBottomHide(menu, true);
                 break;
             case Menu.MenuType.LeftSidePanel:
                 SidePanelHide(menu, false);
                 break;
             case Menu.MenuType.TopPanel:
-                TopBottomPanelOnShow(menu, false);
+                TopBottomHide(menu, false);
                 break;
         }
     }
@@ -81,6 +81,14 @@ public class MenuManager : MonoBehaviour
     public void TopBottomPanelOnShow(Menu menu, bool topBottom)
     {
         //holds transition logic
+        if(topBottom)
+        {
+            StartCoroutine(ShowBottomPanel(menu, .5f));
+        }
+        else
+        {
+            //Do top
+        }
     }
 
     public void SidePanelHide(Menu menu, bool rightLeft)
@@ -102,6 +110,14 @@ public class MenuManager : MonoBehaviour
 
     public void TopBottomHide(Menu menu, bool topBottom)
     {
+        if(topBottom)
+        {
+            StartCoroutine(HideBottomPanel(menu, .5f));
+        }
+        else
+        {
+            //Do top
+        }
         //holds transition logic
     }
 
@@ -137,6 +153,54 @@ public class MenuManager : MonoBehaviour
 
         while(t < duration)
         {
+            menu.rect.anchorMin = Vector2.Lerp(menu.rect.anchorMin, minEndPos, t);
+            menu.rect.anchorMax = Vector2.Lerp(menu.rect.anchorMax, maxEndPos, t);
+            t += Time.deltaTime;
+            yield return null;
+        }
+
+        if (t >= duration)
+        {
+            menu.inTransition = false;
+            menu.isShowing = false;
+        }
+    }
+
+    private IEnumerator ShowBottomPanel(Menu menu, float duration)
+    {
+        menu.inTransition = true;
+        float t = 0;
+
+        Vector2 maxEndPos = new Vector2(menu.rect.anchorMax.x, 1);
+        Vector2 minEndPos = new Vector2(menu.rect.anchorMin.x, 0.5f);
+
+        while (t < duration)
+        {
+            //Lerp max anchor to 1 and min anchor to 0.5
+            menu.rect.anchorMin = Vector2.Lerp(menu.rect.anchorMin, minEndPos, t);
+            menu.rect.anchorMax = Vector2.Lerp(menu.rect.anchorMax, maxEndPos, t);
+            t += Time.deltaTime;
+            yield return null;
+        }
+
+        if (t >= duration)
+        {
+            menu.inTransition = false;
+            menu.isShowing = true;
+        }
+    }
+
+    private IEnumerator HideBottomPanel(Menu menu, float duration)
+    {
+        menu.inTransition = true;
+        float t = 0;
+
+        Vector2 maxEndPos = new Vector2(menu.rect.anchorMax.x, 0.5f);
+        Vector2 minEndPos = new Vector2(menu.rect.anchorMin.x, 0);
+
+        while (t < duration)
+        {
+            //Lerp max anchor to 1 and min anchor to 0.5
             menu.rect.anchorMin = Vector2.Lerp(menu.rect.anchorMin, minEndPos, t);
             menu.rect.anchorMax = Vector2.Lerp(menu.rect.anchorMax, maxEndPos, t);
             t += Time.deltaTime;

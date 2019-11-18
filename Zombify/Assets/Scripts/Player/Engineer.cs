@@ -21,7 +21,7 @@ public class Engineer : PlayerController
     public override void Start()
     {
         base.Start();
-        playerClass = PlayerClasses.Soldier;
+        playerClass = PlayerClasses.Engineer;
         baseSpeed = 5;
         player = ReInput.players.GetPlayer(1);
     }

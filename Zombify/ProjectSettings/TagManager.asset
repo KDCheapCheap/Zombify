@@ -23,6 +23,15 @@ TagManager:
   - Decoy
   - Pistol
   - AR
+  - GunBarrel
+  - GunClip
+  - GunMuzzle
+  - GunBody
+  - GunSight
+  - GunStock
+  - GunFlash
+  - Barrier
+  - SMG
   layers:
   - Default
   - TransparentFX

@@ -8,7 +8,7 @@ public class AmmoPickup : Ability
     private float throwDistance = 6; //Distance it goes from player who through it
     private int ammoGiven = 30;
 
-    public Image abilityTreeImage;
+
     private Color m_imageColour;
     private float imageLockedValue = 90f;
     private float imageUnlockedValue = 255f;
@@ -22,6 +22,7 @@ public class AmmoPickup : Ability
     private void Start()
     {
         cost = 1;
+        activeTime = 10f;
         cooldownTime = 10f;
         playerClass = PlayerController.PlayerClasses.Soldier;
         player = FindCorrectPlayer();

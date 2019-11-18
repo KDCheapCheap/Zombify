@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 /*
  * Abilities will be an empty game object with a script attached
  * the script will be a child of this class allowing all the functionality
@@ -15,9 +16,11 @@ public class Ability : MonoBehaviour
     public PlayerController player;
     public Ability[] parents;
     protected float cooldownTime;
+    protected float activeTime;
     public PlayerController.PlayerClasses playerClass;
     private bool onCooldown = false;
-
+    public Image abilityTreeImage;
+    protected bool isActive;
     public virtual void Init()
     {
         
@@ -33,8 +36,8 @@ public class Ability : MonoBehaviour
             transform.position = player.gameObject.transform.position;
             gameObject.SetActive(true);
 
-            onCooldown = true;
-            StartCoroutine(Cooldown());
+            isActive = true;
+            StartCoroutine(Live());
 
         }
         else
@@ -122,6 +125,14 @@ public class Ability : MonoBehaviour
     {
         yield return new WaitForSeconds(cooldownTime);
         onCooldown = false;
+    }
+
+    private IEnumerator Live()
+    {
+        yield return new WaitForSeconds(activeTime);
+        isActive = false;
+        StartCoroutine(Cooldown());
         gameObject.SetActive(false);
+        
     }
 }

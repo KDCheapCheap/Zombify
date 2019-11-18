@@ -6,7 +6,16 @@ public class Automatic : Weapon
 {
     public override void Shoot(bool increasedDamage, Animator anim)
     {
-        anim.SetTrigger("Shoot");
-        SpawnBullet(increasedDamage);
+        if (canShoot && currentBulletCount > 0)
+        {
+            anim.SetTrigger("Shoot");
+            SpawnBullet(increasedDamage);
+        }
+        else if (currentBulletCount <= 0)
+        {
+            isReloading = true;
+
+            StartCoroutine(Reload(reloadSpeed));
+        }
     }
 }

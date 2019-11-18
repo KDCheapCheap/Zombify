@@ -4,196 +4,110 @@
 Material:
   serializedVersion: 6
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_Name: M_Panel_Screen
-  m_Shader: {fileID: 4800000, guid: 2a9bc83a0ad09254db08cdc43a958e52, type: 3}
+  m_Shader: {fileID: 10752, guid: 0000000000000000f000000000000000, type: 0}
   m_ShaderKeywords: 
   m_LightmapFlags: 5
-  m_CustomRenderQueue: 2000
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
   stringTagMap: {}
+  disabledShaderPasses: []
   m_SavedProperties:
-    serializedVersion: 2
+    serializedVersion: 3
     m_TexEnvs:
-    - first:
-        name: _BumpMap
-      second:
+    - _BumpMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - first:
-        name: _ColorMask
-      second:
+    - _ColorMask:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - first:
-        name: _DetailAlbedoMap
-      second:
+    - _DetailAlbedoMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - first:
-        name: _DetailMask
-      second:
+    - _DetailMask:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - first:
-        name: _DetailNormalMap
-      second:
+    - _DetailNormalMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - first:
-        name: _DiffuseCM
-      second:
+    - _DiffuseCM:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - first:
-        name: _EmissionMap
-      second:
+    - _EmissionMap:
         m_Texture: {fileID: 2800000, guid: 764796ff870c1ff4493ed65c393f2e40, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - first:
-        name: _EmissiveMap
-      second:
+    - _EmissiveMap:
         m_Texture: {fileID: 2800000, guid: 0ff9d5456bd073c4294c55a6364f4a02, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - first:
-        name: _GlossMap
-      second:
+    - _GlossMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - first:
-        name: _MainTex
-      second:
+    - _MainTex:
         m_Texture: {fileID: 2800000, guid: 764796ff870c1ff4493ed65c393f2e40, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - first:
-        name: _MetallicGlossMap
-      second:
+    - _MetallicGlossMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - first:
-        name: _MetalnessMap
-      second:
+    - _MetalnessMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - first:
-        name: _OcclusionMap
-      second:
+    - _OcclusionMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - first:
-        name: _ParallaxMap
-      second:
+    - _ParallaxMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - first:
-        name: _SpecularMap
-      second:
+    - _SpecularMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - first:
-        name: _BumpScale
-      second: 1
-    - first:
-        name: _Cutoff
-      second: 0.5
-    - first:
-        name: _DamageFX
-      second: 0
-    - first:
-        name: _DetailNormalMapScale
-      second: 1
-    - first:
-        name: _DiffuseFactor
-      second: 1
-    - first:
-        name: _DstBlend
-      second: 0
-    - first:
-        name: _EmissionFactor
-      second: 1.03
-    - first:
-        name: _EmissiveFactor
-      second: 2
-    - first:
-        name: _Glossiness
-      second: 0.108
-    - first:
-        name: _Metallic
-      second: 0
-    - first:
-        name: _MetalnessFactor
-      second: 0
-    - first:
-        name: _Mode
-      second: 0
-    - first:
-        name: _OcclusionStrength
-      second: 1
-    - first:
-        name: _Parallax
-      second: 0.02
-    - first:
-        name: _ScreenScanningSpeed
-      second: 0.5
-    - first:
-        name: _ScreenTwinkleSpeed
-      second: 0.5
-    - first:
-        name: _Specular
-      second: 0.2
-    - first:
-        name: _SpecularColorized
-      second: 0.5
-    - first:
-        name: _SrcBlend
-      second: 1
-    - first:
-        name: _UVSec
-      second: 0
-    - first:
-        name: _ZWrite
-      second: 1
+    - _BumpScale: 1
+    - _Cutoff: 0.5
+    - _DamageFX: 0
+    - _DetailNormalMapScale: 1
+    - _DiffuseFactor: 1
+    - _DstBlend: 0
+    - _EmissionFactor: 1.03
+    - _EmissiveFactor: 2
+    - _Glossiness: 0.108
+    - _Metallic: 0
+    - _MetalnessFactor: 0
+    - _Mode: 0
+    - _OcclusionStrength: 1
+    - _Parallax: 0.02
+    - _ScreenScanningSpeed: 0.5
+    - _ScreenTwinkleSpeed: 0.5
+    - _Specular: 0.2
+    - _SpecularColorized: 0.5
+    - _SrcBlend: 1
+    - _UVSec: 0
+    - _ZWrite: 1
     m_Colors:
-    - first:
-        name: _Color
-      second: {r: 0, g: 0, b: 0, a: 1}
-    - first:
-        name: _Color1
-      second: {r: 1, g: 1, b: 1, a: 1}
-    - first:
-        name: _Color2
-      second: {r: 1, g: 1, b: 1, a: 1}
-    - first:
-        name: _DamageColor
-      second: {r: 1, g: 1, b: 1, a: 1}
-    - first:
-        name: _EmissionColor
-      second: {r: 0.2205882, g: 1, b: 1, a: 1}
-    - first:
-        name: _EmissiveColor
-      second: {r: 0, g: 1, b: 0, a: 1}
-    - first:
-        name: _MaskedColorA
-      second: {r: 1, g: 0, b: 0, a: 1}
-    - first:
-        name: _MaskedColorB
-      second: {r: 0, g: 1, b: 0, a: 1}
-    - first:
-        name: _MaskedColorC
-      second: {r: 0, g: 0, b: 1, a: 1}
+    - _Color: {r: 0, g: 0, b: 0, a: 1}
+    - _Color1: {r: 1, g: 1, b: 1, a: 1}
+    - _Color2: {r: 1, g: 1, b: 1, a: 1}
+    - _DamageColor: {r: 1, g: 1, b: 1, a: 1}
+    - _EmissionColor: {r: 0.2205882, g: 1, b: 1, a: 1}
+    - _EmissiveColor: {r: 0, g: 1, b: 0, a: 1}
+    - _MaskedColorA: {r: 1, g: 0, b: 0, a: 1}
+    - _MaskedColorB: {r: 0, g: 1, b: 0, a: 1}
+    - _MaskedColorC: {r: 0, g: 0, b: 1, a: 1}

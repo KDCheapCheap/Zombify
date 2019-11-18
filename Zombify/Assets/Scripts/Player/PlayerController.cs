@@ -19,6 +19,7 @@ public class PlayerController : MonoBehaviour
     }
 
     public float baseSpeed;
+    private int maxHealth = 15;
     public int health;
     [HideInInspector] public PlayerClasses playerClass;
     [HideInInspector] public Player player;
@@ -51,14 +52,18 @@ public class PlayerController : MonoBehaviour
     private float currentSpeed;
     private float sprintSpeed;
 
-    private TMP_Text currentBulletCount;
-    private TMP_Text totalAmmo;
+    public TMP_Text currentBulletCount;
+    public TMP_Text totalAmmo;
+    public TMP_Text healthUI;
 
     public Vector3 lookAtPoint;
     private GameObject currentWeaponObject;
 
     public bool isHealing;
     public bool increasedDamage;
+    public GameObject crosshair;
+
+    private int savedPistolAmmo, savedPistolClip, savedSMGAmmo, savedSMGClip, savedShotgunAmmo, savedShotgunClip, savedARAmmo, savedARClip;
 
     private Vector2 lookDeadzone
     {
@@ -116,6 +121,7 @@ public class PlayerController : MonoBehaviour
     {
         anim = GetComponent<Animator>();
         currentSpeed = baseSpeed;
+        health = maxHealth;
         //currentWeapon = Weapons[0].GetComponent<Weapon>();
         currentWeapon = Weapons[0].GetComponent<Weapon>();
         if (!hasWeaponEquipped)
@@ -125,7 +131,7 @@ public class PlayerController : MonoBehaviour
             currentWeapon = newWeapon.GetComponent<Weapon>();
             hasWeaponEquipped = true;
         }
-        GetUI();
+        //GetUI();
     }
 
     public virtual void Update()
@@ -140,7 +146,8 @@ public class PlayerController : MonoBehaviour
 
         currentBulletCount.text = currentWeapon.currentBulletCount.ToString();
         totalAmmo.text = currentWeapon.totalAmmo.ToString();
-
+        crosshair.transform.position = GetLookAtPoint() + new Vector3(0, 1, 0);
+        healthUI.text = health.ToString();
         if (skillTree.Count > 0)
         {
             for (int i = 0; i < skillTree.Count - 1; i++)
@@ -149,7 +156,11 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        
+        if(health > maxHealth)
+        {
+            health = maxHealth;
+        }
+
         if (isHealing)
         {
             StartCoroutine(HealMe(3));
@@ -221,7 +232,7 @@ public class PlayerController : MonoBehaviour
             //anim.SetBool("isWalking", false);
         }
 
-        if(currentWeapon.isReloading)
+        if (currentWeapon.isReloading)
         {
             anim.SetTrigger("Reload");
         }
@@ -289,49 +300,92 @@ public class PlayerController : MonoBehaviour
             switch (wep.tag)
             {
                 case "Pistol":
-                    if (Weapons[1] != null)
+                    if (Weapons.Count >= 2)
                     {
                         Destroy(currentWeaponObject);
+                        savedPistolAmmo = currentWeapon.totalAmmo;
+                        savedPistolClip = currentWeapon.currentBulletCount;
                         GameObject newWeapon = Instantiate(Weapons[1], gunSpawn.transform.position, gunSpawn.transform.rotation, gunSpawn.transform);
                         currentWeaponObject = newWeapon;
                         currentWeapon = newWeapon.GetComponent<Weapon>();
+                        if (savedSMGClip > 0)
+                        {
+                            currentWeapon.totalAmmo = savedSMGAmmo;
+                            currentWeapon.currentBulletCount = savedSMGClip;
+                        }
                         //currentWeapon = Weapons[1].GetComponent<Weapon>();
                     }
                     break;
 
                 case "SMG":
-                    if (Weapons[2] != null)
+                    if (Weapons.Count >= 3)
                     {
-                        Destroy(currentWeapon.gameObject);
+                        Destroy(currentWeaponObject);
+                        savedSMGAmmo = currentWeapon.totalAmmo;
+                        savedSMGClip = currentWeapon.currentBulletCount;
                         GameObject newWeapon = Instantiate(Weapons[2], gunSpawn.transform.position, gunSpawn.transform.rotation, gunSpawn.transform);
                         currentWeaponObject = newWeapon;
                         currentWeapon = newWeapon.GetComponent<Weapon>();
+
+                        if (savedShotgunClip > -1)
+                        {
+                            currentWeapon.totalAmmo = savedShotgunAmmo;
+                            currentWeapon.currentBulletCount = savedShotgunClip;
+                        }
                         //currentWeapon = Weapons[1].GetComponent<Weapon>();
                     }
                     else
                     {
                         Destroy(currentWeapon.gameObject);
+
+                        savedSMGAmmo = currentWeapon.totalAmmo;
+                        savedSMGClip = currentWeapon.currentBulletCount;
+
                         GameObject newWeapon = Instantiate(Weapons[0], gunSpawn.transform.position, gunSpawn.transform.rotation, gunSpawn.transform);
+
                         currentWeaponObject = newWeapon;
                         currentWeapon = newWeapon.GetComponent<Weapon>();
+
+                        currentWeapon.totalAmmo = savedPistolAmmo;
+                        currentWeapon.currentBulletCount = savedPistolClip;
+
                     }
                     break;
 
                 case "Shotgun":
-                    if (Weapons[3] != null)
+                    if (Weapons.Count >= 4)
                     {
                         Destroy(currentWeapon.gameObject);
+
+                        savedShotgunAmmo = currentWeapon.totalAmmo;
+                        savedShotgunClip = currentWeapon.currentBulletCount;
+
                         GameObject newWeapon = Instantiate(Weapons[3], gunSpawn.transform.position, gunSpawn.transform.rotation, gunSpawn.transform);
+
                         currentWeaponObject = newWeapon;
                         currentWeapon = newWeapon.GetComponent<Weapon>();
+
+                        if (savedARClip > -1)
+                        {
+                            currentWeapon.totalAmmo = savedARAmmo;
+                            currentWeapon.currentBulletCount = savedARClip;
+                        }
                         //currentWeapon = Weapons[1].GetComponent<Weapon>();
                     }
                     else
                     {
                         Destroy(currentWeapon.gameObject);
+
+                        savedShotgunAmmo = currentWeapon.totalAmmo;
+                        savedShotgunClip = currentWeapon.currentBulletCount;
+
                         GameObject newWeapon = Instantiate(Weapons[0], gunSpawn.transform.position, gunSpawn.transform.rotation, gunSpawn.transform);
+
                         currentWeaponObject = newWeapon;
                         currentWeapon = newWeapon.GetComponent<Weapon>();
+
+                        currentWeapon.totalAmmo = savedPistolAmmo;
+                        currentWeapon.currentBulletCount = savedPistolClip;
                     }
                     break;
 
@@ -339,9 +393,16 @@ public class PlayerController : MonoBehaviour
                     if (Weapons[0] != null)
                     {
                         Destroy(currentWeapon.gameObject);
+
+                        savedARAmmo = currentWeapon.totalAmmo;
+                        savedARClip = currentWeapon.currentBulletCount;
+
                         GameObject newWeapon = Instantiate(Weapons[0], gunSpawn.transform.position, gunSpawn.transform.rotation, gunSpawn.transform);
+
                         currentWeaponObject = newWeapon;
                         currentWeapon = newWeapon.GetComponent<Weapon>();
+                        currentWeapon.totalAmmo = savedPistolAmmo;
+                        currentWeapon.currentBulletCount = savedPistolClip;
                         //currentWeapon = Weapons[1].GetComponent<Weapon>();
                     }
                     break;
@@ -410,20 +471,22 @@ public class PlayerController : MonoBehaviour
                 totalAmmo = GameObject.FindGameObjectWithTag("Player1TA").GetComponent<TMP_Text>();
                 break;
 
-            case PlayerClasses.Scout:
+            case PlayerClasses.Engineer:
                 currentBulletCount = GameObject.FindGameObjectWithTag("Player2CBC").GetComponent<TMP_Text>();
                 totalAmmo = GameObject.FindGameObjectWithTag("Player2TA").GetComponent<TMP_Text>();
                 break;
+
 
             case PlayerClasses.Medic:
                 currentBulletCount = GameObject.FindGameObjectWithTag("Player3CBC").GetComponent<TMP_Text>();
                 totalAmmo = GameObject.FindGameObjectWithTag("Player3TA").GetComponent<TMP_Text>();
                 break;
 
-            case PlayerClasses.Engineer:
+            case PlayerClasses.Scout:
                 currentBulletCount = GameObject.FindGameObjectWithTag("Player4CBC").GetComponent<TMP_Text>();
                 totalAmmo = GameObject.FindGameObjectWithTag("Player4TA").GetComponent<TMP_Text>();
                 break;
+
         }
     }
 
